@@ -91,7 +91,7 @@ export function AdminDashboard({ user, viewMode, onSwitchViewMode, onLogout, onB
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-white border-b border-border sticky top-0 z-10">
+      <div className="bg-[#ffffff] shadow-sm sticky top-0 z-10">
         <div className="p-4 space-y-4">
           <div className="flex items-center justify-between">
             <div>

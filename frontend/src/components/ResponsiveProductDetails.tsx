@@ -47,7 +47,7 @@ export function ResponsiveProductDetails({
   const renderMobileLayout = () => (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-white border-b border-border sticky top-0 z-10">
+      <div className="bg-[#ffffff] shadow-sm sticky top-0 z-10">
         <div className="p-4">
           <div className="flex items-center justify-between">
             <button

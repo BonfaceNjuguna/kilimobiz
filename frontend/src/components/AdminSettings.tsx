@@ -11,6 +11,7 @@ import {
   AlertCircle,
   CheckCircle
 } from "lucide-react";
+import { useScreenSize } from "./ResponsiveLayout";
 import type { User } from "../types/marketplace";
 
 interface AdminSettingsProps {
@@ -24,6 +25,8 @@ export function AdminSettings({ user, onBack, onLogout }: AdminSettingsProps) {
   const [darkMode, setDarkMode] = useState(false);
   const [emailAlerts, setEmailAlerts] = useState(true);
   const [autoApproval, setAutoApproval] = useState(false);
+  
+  const screenSize = useScreenSize();
 
   // Simple Switch component using Tailwind
   function Switch({ checked, onCheckedChange }: { checked: boolean; onCheckedChange: (v: boolean) => void }) {
@@ -82,7 +85,7 @@ export function AdminSettings({ user, onBack, onLogout }: AdminSettingsProps) {
     const base =
       "rounded transition font-medium flex items-center justify-center focus:outline-none";
     const variants = {
-      default: "bg-primary text-white hover:bg-primary/90",
+      default: "bg-[#10b981] text-white hover:bg-[#059669]",
       outline: "border border-gray-300 text-gray-700 bg-white hover:bg-gray-100",
       ghost: "bg-transparent text-gray-700 hover:bg-gray-100",
       destructive: "bg-red-600 text-white hover:bg-red-700",
@@ -162,28 +165,30 @@ export function AdminSettings({ user, onBack, onLogout }: AdminSettingsProps) {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#f9fafb]">
       {/* Header */}
-      <div className="bg-white border-b border-border sticky top-0 z-10">
+      <div className="bg-[#ffffff] shadow-sm sticky top-0 z-10">
         <div className="p-4">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-3">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={onBack}
-                className="w-10 h-10 p-0"
-              >
-                <ArrowLeft className="w-5 h-5" />
-              </Button>
+              {screenSize === 'mobile' && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={onBack}
+                  className="w-10 h-10 p-0"
+                >
+                  <ArrowLeft className="w-5 h-5" />
+                </Button>
+              )}
               <div>
-                <h1 className="text-lg font-semibold text-foreground">Admin Settings</h1>
-                <p className="text-sm text-muted-foreground">
+                <h1 className="text-lg font-semibold text-[#1f2937]">Admin Settings</h1>
+                <p className="text-sm text-[#6b7280]">
                   Manage your admin preferences and platform settings
                 </p>
               </div>
             </div>
-            <Settings className="w-6 h-6 text-muted-foreground" />
+            <Settings className="w-6 h-6 text-[#6b7280]" />
           </div>
 
           {/* Admin Info */}
@@ -224,10 +229,10 @@ export function AdminSettings({ user, onBack, onLogout }: AdminSettingsProps) {
             </CardHeader>
             <CardContent className="space-y-4">
               {section.items.map((item, itemIndex) => (
-                <div key={itemIndex} className="flex items-center justify-between py-3 border-b border-border last:border-0">
+                <div key={itemIndex} className="flex items-center justify-between py-3 border-b border-[#e5e7eb] last:border-0">
                   <div className="flex-1">
-                    <h4 className="font-medium text-foreground">{item.label}</h4>
-                    <p className="text-sm text-muted-foreground mt-1">{item.description}</p>
+                    <h4 className="font-medium text-[#1f2937]">{item.label}</h4>
+                    <p className="text-sm text-[#6b7280] mt-1">{item.description}</p>
                   </div>
                   <div className="ml-4">
                     {item.action}
@@ -292,7 +297,7 @@ export function AdminSettings({ user, onBack, onLogout }: AdminSettingsProps) {
           </CardContent>
         </Card>
 
-        <div className="pb-8" /> {/* Bottom padding */}
+      <div className="pb-8" /> {/* Bottom padding */}
       </div>
     </div>
   );

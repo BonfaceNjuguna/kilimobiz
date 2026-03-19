@@ -13,6 +13,7 @@ import {
   ArrowUpRight,
   ArrowDownLeft
 } from "lucide-react";
+import { useScreenSize } from "./ResponsiveLayout";
 
 interface FarmerEarningsScreenProps {
   farmerId: number;
@@ -84,6 +85,7 @@ const earningsData = [
 ];
 
 export function FarmerEarningsScreen({ onBack }: FarmerEarningsScreenProps) {
+  const screenSize = useScreenSize();
   const [selectedPeriod, setSelectedPeriod] = useState<'7d' | '30d' | '90d' | '1y'>('30d');
 
   const totalEarnings = 58100;
@@ -122,22 +124,24 @@ export function FarmerEarningsScreen({ onBack }: FarmerEarningsScreenProps) {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#f9fafb]">
       <div className="p-4 space-y-6">
         {/* Header */}
         <div className="flex flex-col space-y-4 lg:flex-row lg:items-center lg:justify-between lg:space-y-0">
           <div className="flex items-center space-x-4">
-            <button
-              type="button"
-              onClick={onBack}
-              className="flex items-center space-x-2 rounded hover:bg-gray-100 transition px-3 py-2"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              <span>Back</span>
-            </button>
+            {screenSize === 'mobile' && (
+              <button
+                type="button"
+                onClick={onBack}
+                className="flex items-center space-x-2 rounded hover:bg-gray-100 transition px-3 py-2"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span>Back</span>
+              </button>
+            )}
             <div>
-              <h1 className="text-lg lg:text-2xl font-semibold">Earnings</h1>
-              <p className="text-sm text-muted-foreground">Track your revenue and payouts</p>
+              <h1 className="text-lg lg:text-2xl font-semibold text-[#1f2937]">Earnings & Payouts</h1>
+              <p className="text-sm text-[#6b7280]">Track your revenue and payouts</p>
             </div>
           </div>
           <div className="flex items-center space-x-2">
@@ -173,8 +177,8 @@ export function FarmerEarningsScreen({ onBack }: FarmerEarningsScreenProps) {
                 onClick={() => setSelectedPeriod(period.value as '7d' | '30d' | '90d' | '1y')}
                 className={`px-3 py-1 rounded text-xs lg:text-sm font-medium border ${
                   selectedPeriod === period.value
-                    ? 'bg-primary text-white border-primary'
-                    : 'bg-muted text-foreground border-muted-foreground'
+                    ? 'bg-[#10b981] text-white border-[#10b981]'
+                    : 'bg-[#f3f4f6] text-[#1f2937] border-[#6b7280]'
                 }`}
               >
                 <span className="sm:hidden">{period.label}</span>
@@ -238,15 +242,15 @@ export function FarmerEarningsScreen({ onBack }: FarmerEarningsScreenProps) {
         <div className="bg-white rounded-lg shadow">
           <div className="border-b px-6 py-4 font-semibold">Quick Actions</div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 px-6 py-4">
-            <button className="flex items-center justify-center space-x-2 h-12 bg-primary hover:bg-primary/90 text-white rounded">
+            <button className="flex items-center justify-center space-x-2 h-12 bg-[#10b981] hover:bg-[#059669] text-white rounded">
               <CreditCard className="w-4 h-4" />
               <span>Request Payout</span>
             </button>
-            <button className="flex items-center justify-center space-x-2 h-12 border rounded hover:bg-muted transition">
+            <button className="flex items-center justify-center space-x-2 h-12 border rounded hover:bg-[#f3f4f6] transition">
               <Download className="w-4 h-4" />
               <span>Download Statement</span>
             </button>
-            <button className="flex items-center justify-center space-x-2 h-12 border rounded hover:bg-muted transition">
+            <button className="flex items-center justify-center space-x-2 h-12 border rounded hover:bg-[#f3f4f6] transition">
               <Calendar className="w-4 h-4" />
               <span>View Payout Schedule</span>
             </button>
@@ -259,7 +263,7 @@ export function FarmerEarningsScreen({ onBack }: FarmerEarningsScreenProps) {
             <button
               type="button"
               className={`py-2 px-4 font-medium border-b-2 text-xs lg:text-sm ${
-                true ? 'border-primary text-primary' : 'border-transparent text-muted-foreground'
+                true ? 'border-[#10b981] text-[#10b981]' : 'border-transparent text-[#6b7280]'
               }`}
             >
               Earnings
@@ -267,7 +271,7 @@ export function FarmerEarningsScreen({ onBack }: FarmerEarningsScreenProps) {
             <button
               type="button"
               className={`py-2 px-4 font-medium border-b-2 text-xs lg:text-sm ${
-                false ? 'border-primary text-primary' : 'border-transparent text-muted-foreground'
+                false ? 'border-[#10b981] text-[#10b981]' : 'border-transparent text-[#6b7280]'
               }`}
             >
               Transactions
@@ -282,10 +286,10 @@ export function FarmerEarningsScreen({ onBack }: FarmerEarningsScreenProps) {
                 {earningsData.map((data) => (
                   <div key={data.period} className="flex-1 flex flex-col items-center">
                     <div 
-                      className="w-full bg-primary rounded-t-md transition-all duration-300 hover:bg-primary/80"
+                      className="w-full bg-[#10b981] rounded-t-md transition-all duration-300 hover:bg-[#10b981]/80"
                       style={{ height: `${(data.earnings / 20000) * 100}%` }}
                     />
-                    <span className="text-xs text-muted-foreground mt-2">{data.period}</span>
+                    <span className="text-xs text-[#6b7280] mt-2">{data.period}</span>
                     <span className="text-xs font-medium">KES {data.earnings.toLocaleString()}</span>
                     <span className="text-xs text-muted-foreground">{data.orders} orders</span>
                   </div>
@@ -315,12 +319,12 @@ export function FarmerEarningsScreen({ onBack }: FarmerEarningsScreenProps) {
               {mockTransactions.map((transaction) => (
                 <div key={transaction.id} className="flex items-center justify-between p-4 bg-muted rounded-lg">
                   <div className="flex items-center space-x-4">
-                    <div className="w-10 h-10 bg-background rounded-full flex items-center justify-center">
+                      <div className="w-10 h-10 bg-[#f9fafb] rounded-full flex items-center justify-center">
                       {getTransactionIcon(transaction.type)}
                     </div>
                     <div>
                       <h3 className="font-medium">{transaction.description}</h3>
-                      <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                        <div className="flex items-center space-x-2 text-sm text-[#6b7280]">
                         <span>{transaction.date}</span>
                         {transaction.orderId && (
                           <>

@@ -10,6 +10,7 @@ import {
   Calendar,
   Download
 } from "lucide-react";
+import { useScreenSize } from "./ResponsiveLayout";
 
 interface FarmerAnalyticsScreenProps {
   farmerId: number;
@@ -18,6 +19,7 @@ interface FarmerAnalyticsScreenProps {
 }
 
 export function FarmerAnalyticsScreen({ onBack, farmerName }: FarmerAnalyticsScreenProps) {
+  const screenSize = useScreenSize();
   const [selectedPeriod, setSelectedPeriod] = useState<'7d' | '30d' | '90d' | '1y'>('30d');
 
   const salesData = [
@@ -78,17 +80,19 @@ export function FarmerAnalyticsScreen({ onBack, farmerName }: FarmerAnalyticsScr
         {/* Header */}
         <div className="flex flex-col space-y-4 lg:flex-row lg:items-center lg:justify-between lg:space-y-0">
           <div className="flex items-center space-x-4">
-            <button
-              type="button"
-              onClick={onBack}
-              className="flex items-center space-x-2 rounded hover:bg-gray-100 transition px-3 py-2"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              <span>Back</span>
-            </button>
+            {screenSize === 'mobile' && (
+              <button
+                type="button"
+                onClick={onBack}
+                className="flex items-center space-x-2 rounded hover:bg-gray-100 transition px-3 py-2"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                <span>Back</span>
+              </button>
+            )}
             <div>
-              <h1 className="text-lg lg:text-2xl font-semibold">Analytics Dashboard</h1>
-              <p className="text-sm text-muted-foreground">Performance insights for {farmerName}</p>
+              <h1 className="text-lg lg:text-2xl font-semibold text-[#1f2937]">Analytics Dashboard</h1>
+              <p className="text-sm text-[#6b7280]">Performance insights for {farmerName}</p>
             </div>
           </div>
           <div className="flex items-center space-x-2">

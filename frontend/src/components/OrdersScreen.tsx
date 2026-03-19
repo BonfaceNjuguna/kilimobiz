@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Screen } from "../types/marketplace";
+import { useScreenSize } from "./ResponsiveLayout";
 import { 
   ArrowLeft, 
   Search, 
@@ -25,12 +26,13 @@ interface OrdersScreenProps {
 }
 
 export function OrdersScreen({ user, orders, onBack, onNavigateToScreen }: OrdersScreenProps) {
+  const screenSize = useScreenSize();
   const [activeTab, setActiveTab] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+      <div className="min-h-screen bg-[#f9fafb] flex items-center justify-center p-4">
         <div className="w-full max-w-md bg-white rounded-2xl shadow-xl">
           <div className="p-8 text-center">
             <Package className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
@@ -38,7 +40,7 @@ export function OrdersScreen({ user, orders, onBack, onNavigateToScreen }: Order
             <p className="text-muted-foreground mb-4">
               You need to be logged in to view your orders
             </p>
-            <button onClick={onBack} className="w-full h-12 bg-primary hover:bg-primary/90 text-white rounded-lg font-medium transition">
+            <button onClick={onBack} className="w-full h-12 bg-[#10b981] hover:bg-[#059669] text-white rounded-lg font-medium transition">
               Go Back
             </button>
           </div>
@@ -105,22 +107,24 @@ export function OrdersScreen({ user, orders, onBack, onNavigateToScreen }: Order
   ).length;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#f9fafb]">
       {/* Header */}
-      <div className="bg-white border-b border-border sticky top-0 z-10">
+      <div className="bg-[#ffffff] shadow-sm sticky top-0 z-10">
         <div className="p-4">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-3">
-              <button
-                type="button"
-                onClick={onBack}
-                className="w-10 h-10 p-0 rounded-full hover:bg-muted transition flex items-center justify-center"
-              >
-                <ArrowLeft className="w-5 h-5" />
-              </button>
+              {screenSize === 'mobile' && (
+                <button
+                  type="button"
+                  onClick={onBack}
+                  className="w-10 h-10 p-0 rounded-full hover:bg-[#f3f4f6] transition flex items-center justify-center"
+                >
+                  <ArrowLeft className="w-5 h-5" />
+                </button>
+              )}
               <div>
-                <h1 className="text-lg font-semibold text-foreground">My Orders</h1>
-                <p className="text-sm text-muted-foreground">
+                <h1 className="text-lg font-semibold text-[#1f2937]">My Orders</h1>
+                <p className="text-sm text-[#6b7280]">
                   Track your purchases and deliveries
                 </p>
               </div>
@@ -129,13 +133,13 @@ export function OrdersScreen({ user, orders, onBack, onNavigateToScreen }: Order
 
           {/* Search Bar */}
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[#6b7280]" />
             <input
               type="text"
               placeholder="Search orders..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 h-12 w-full rounded-lg bg-muted border-0 text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary focus:outline-none"
+              className="pl-10 h-12 w-full rounded-lg bg-[#f3f4f6] border-0 text-[#1f2937] placeholder:text-[#6b7280] focus:ring-2 focus:ring-[#10b981] focus:outline-none"
             />
           </div>
         </div>
@@ -148,16 +152,16 @@ export function OrdersScreen({ user, orders, onBack, onNavigateToScreen }: Order
             <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2">
               <Package className="w-6 h-6 text-blue-600" />
             </div>
-            <p className="text-2xl font-semibold text-foreground">{upcomingOrders}</p>
-            <p className="text-sm text-muted-foreground">Active Orders</p>
+            <p className="text-2xl font-semibold text-[#1f2937]">{upcomingOrders}</p>
+            <p className="text-sm text-[#6b7280]">Active Orders</p>
           </div>
 
           <div className="p-4 text-center bg-white rounded-lg shadow">
             <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2">
               <CheckCircle className="w-6 h-6 text-green-600" />
             </div>
-            <p className="text-2xl font-semibold text-foreground">{pastOrders}</p>
-            <p className="text-sm text-muted-foreground">Completed</p>
+            <p className="text-2xl font-semibold text-[#1f2937]">{pastOrders}</p>
+            <p className="text-sm text-[#6b7280]">Completed</p>
           </div>
         </div>
 
@@ -168,8 +172,8 @@ export function OrdersScreen({ user, orders, onBack, onNavigateToScreen }: Order
               type="button"
               className={`py-2 px-4 rounded-t-lg font-medium transition-all ${
                 activeTab === 'all'
-                  ? 'bg-primary text-white'
-                  : 'bg-muted text-muted-foreground'
+                  ? 'bg-[#10b981] text-white'
+                  : 'bg-[#f3f4f6] text-[#6b7280]'
               }`}
               onClick={() => setActiveTab('all')}
             >
@@ -179,8 +183,8 @@ export function OrdersScreen({ user, orders, onBack, onNavigateToScreen }: Order
               type="button"
               className={`py-2 px-4 rounded-t-lg font-medium transition-all ${
                 activeTab === 'upcoming'
-                  ? 'bg-primary text-white'
-                  : 'bg-muted text-muted-foreground'
+                  ? 'bg-[#10b981] text-white'
+                  : 'bg-[#f3f4f6] text-[#6b7280]'
               }`}
               onClick={() => setActiveTab('upcoming')}
             >
@@ -190,8 +194,8 @@ export function OrdersScreen({ user, orders, onBack, onNavigateToScreen }: Order
               type="button"
               className={`py-2 px-4 rounded-t-lg font-medium transition-all ${
                 activeTab === 'past'
-                  ? 'bg-primary text-white'
-                  : 'bg-muted text-muted-foreground'
+                  ? 'bg-[#10b981] text-white'
+                  : 'bg-[#f3f4f6] text-[#6b7280]'
               }`}
               onClick={() => setActiveTab('past')}
             >
@@ -202,18 +206,18 @@ export function OrdersScreen({ user, orders, onBack, onNavigateToScreen }: Order
           <div className="space-y-4">
             {filteredOrders.length === 0 ? (
               <div className="text-center py-12">
-                <Package className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-                <h3 className="font-medium text-foreground mb-2">
+                <Package className="w-16 h-16 text-[#6b7280] mx-auto mb-4" />
+                <h3 className="font-medium text-[#1f2937] mb-2">
                   {searchQuery ? 'No matching orders found' : 'No orders yet'}
                 </h3>
-                <p className="text-sm text-muted-foreground mb-4">
+                <p className="text-sm text-[#6b7280] mb-4">
                   {searchQuery ? 'Try adjusting your search' : 'Start shopping to see your orders here'}
                 </p>
                 {!searchQuery && (
                   <button
                     type="button"
                     onClick={() => onNavigateToScreen('home')}
-                    className="w-full h-12 bg-primary hover:bg-primary/90 text-white rounded-lg font-medium transition"
+                    className="w-full h-12 bg-[#10b981] hover:bg-[#059669] text-white rounded-lg font-medium transition"
                   >
                     Start Shopping
                   </button>
@@ -228,8 +232,8 @@ export function OrdersScreen({ user, orders, onBack, onNavigateToScreen }: Order
                         {/* Order Header */}
                         <div className="flex items-center justify-between">
                           <div>
-                            <h3 className="font-medium text-foreground">Order #{order.id}</h3>
-                            <div className="flex items-center space-x-2 text-sm text-muted-foreground mt-1">
+                            <h3 className="font-medium text-[#1f2937]">Order #{order.id}</h3>
+                            <div className="flex items-center space-x-2 text-sm text-[#6b7280] mt-1">
                               <Calendar className="w-3 h-3" />
                               <span>{order.orderDate.toLocaleDateString()}</span>
                               <span>•</span>
@@ -245,7 +249,7 @@ export function OrdersScreen({ user, orders, onBack, onNavigateToScreen }: Order
                         {/* Order Items Preview */}
                         <div className="space-y-2">
                           {order.items.slice(0, 2).map((item, index) => (
-                            <div key={index} className="flex items-center space-x-3 p-2 bg-muted rounded-lg">
+                            <div key={index} className="flex items-center space-x-3 p-2 bg-[#f3f4f6] rounded-lg">
                               <img
                                 src={item.product.images[0]}
                                 alt={item.product.name}
@@ -253,14 +257,14 @@ export function OrdersScreen({ user, orders, onBack, onNavigateToScreen }: Order
                               />
                               <div className="flex-1">
                                 <p className="font-medium text-sm">{item.product.name}</p>
-                                <p className="text-sm text-muted-foreground">
+                            <p className="text-sm text-[#6b7280]">
                                   {item.quantity} × KES {item.product.price}
                                 </p>
                               </div>
                             </div>
                           ))}
                           {order.items.length > 2 && (
-                            <p className="text-sm text-muted-foreground text-center">
+                            <p className="text-sm text-[#6b7280] text-center">
                               +{order.items.length - 2} more items
                             </p>
                           )}
@@ -288,12 +292,12 @@ export function OrdersScreen({ user, orders, onBack, onNavigateToScreen }: Order
                         )}
 
                         {/* Order Total and Actions */}
-                        <div className="flex items-center justify-between pt-2 border-t border-border">
+                        <div className="flex items-center justify-between pt-2 border-t border-[#e5e7eb]">
                           <div>
-                            <p className="font-semibold text-lg text-foreground">
+                            <p className="font-semibold text-lg text-[#1f2937]">
                               KES {order.total.toLocaleString()}
                             </p>
-                            <p className="text-sm text-muted-foreground">
+                            <p className="text-sm text-[#6b7280]">
                               {order.paymentMethod} • Total
                             </p>
                           </div>
@@ -332,7 +336,7 @@ export function OrdersScreen({ user, orders, onBack, onNavigateToScreen }: Order
                           <div className="flex space-x-2 mt-2">
                             <button
                               type="button"
-                              className="flex-1 px-3 py-2 rounded bg-primary hover:bg-primary/90 text-white text-sm font-medium flex items-center justify-center transition"
+                                className="px-3 py-2 rounded bg-[#10b981] hover:bg-[#059669] text-white text-sm font-medium flex items-center justify-center transition"
                               onClick={() => onNavigateToScreen('order-tracking', undefined, order.id)}
                             >
                               <Truck className="w-3 h-3 mr-2" />

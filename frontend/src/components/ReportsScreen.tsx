@@ -10,6 +10,7 @@ import {
   Users,
   Package
 } from "lucide-react";
+import { useScreenSize } from "./ResponsiveLayout";
 
 interface ReportsScreenProps {
   onBack: () => void;
@@ -17,6 +18,8 @@ interface ReportsScreenProps {
 
 export function ReportsScreen({ onBack }: ReportsScreenProps) {
   const [selectedPeriod, setSelectedPeriod] = useState<'7d' | '30d' | '90d' | '1y'>('30d');
+  
+  const screenSize = useScreenSize();
 
   const salesData = [
     { period: 'Jan', sales: 45000, orders: 120, customers: 89 },
@@ -47,30 +50,32 @@ export function ReportsScreen({ onBack }: ReportsScreenProps) {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
-          <button
-            type="button"
-            onClick={onBack}
-            className="flex items-center space-x-2 rounded hover:bg-muted transition px-3 py-2"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span>Back</span>
-          </button>
+          {screenSize === 'mobile' && (
+            <button
+              type="button"
+              onClick={onBack}
+              className="flex items-center space-x-2 rounded hover:bg-[#f3f4f6] transition px-3 py-2"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span>Back</span>
+            </button>
+          )}
           <div>
             <h1 className="text-2xl font-semibold">Reports & Analytics</h1>
-            <p className="text-muted-foreground">Detailed insights and performance metrics</p>
+            <p className="text-[#6b7280]">Detailed insights and performance metrics</p>
           </div>
         </div>
         <div className="flex items-center space-x-2">
           <button
             type="button"
-            className="flex items-center space-x-2 border rounded px-3 py-2 hover:bg-muted transition"
+            className="flex items-center space-x-2 rounded hover:bg-[#f3f4f6] transition px-3 py-2"
           >
             <Calendar className="w-4 h-4" />
             <span>Date Range</span>
           </button>
           <button
             type="button"
-            className="flex items-center space-x-2 bg-primary text-white rounded px-3 py-2 hover:bg-primary/90 transition"
+            className="flex items-center space-x-2 bg-[#10b981] text-white rounded px-3 py-2 hover:bg-[#059669] transition"
           >
             <Download className="w-4 h-4" />
             <span>Export Report</span>
@@ -93,8 +98,8 @@ export function ReportsScreen({ onBack }: ReportsScreenProps) {
                 type="button"
                 className={`px-4 py-2 rounded font-medium transition ${
                   selectedPeriod === period.value
-                    ? 'bg-primary text-white'
-                    : 'bg-muted text-muted-foreground'
+                    ? 'bg-[#10b981] text-white'
+                    : 'bg-[#f3f4f6] text-[#6b7280]'
                 }`}
                 onClick={() => setSelectedPeriod(period.value as '7d' | '30d' | '90d' | '1y')}
               >
@@ -110,7 +115,7 @@ export function ReportsScreen({ onBack }: ReportsScreenProps) {
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-muted-foreground">Total Revenue</p>
+              <p className="text-sm text-[#6b7280]">Total Revenue</p>
               <p className="text-2xl font-semibold">KES 2.4M</p>
               <div className="flex items-center space-x-1 mt-1">
                 <TrendingUp className="w-3 h-3 text-green-600" />
@@ -123,7 +128,7 @@ export function ReportsScreen({ onBack }: ReportsScreenProps) {
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-muted-foreground">Total Orders</p>
+              <p className="text-sm text-[#6b7280]">Total Orders</p>
               <p className="text-2xl font-semibold">1,426</p>
               <div className="flex items-center space-x-1 mt-1">
                 <TrendingUp className="w-3 h-3 text-green-600" />
@@ -136,7 +141,7 @@ export function ReportsScreen({ onBack }: ReportsScreenProps) {
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-muted-foreground">Active Users</p>
+              <p className="text-sm text-[#6b7280]">Active Users</p>
               <p className="text-2xl font-semibold">1,234</p>
               <div className="flex items-center space-x-1 mt-1">
                 <TrendingUp className="w-3 h-3 text-green-600" />
@@ -149,7 +154,7 @@ export function ReportsScreen({ onBack }: ReportsScreenProps) {
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-muted-foreground">Products Sold</p>
+              <p className="text-sm text-[#6b7280]">Products Sold</p>
               <p className="text-2xl font-semibold">3,567</p>
               <div className="flex items-center space-x-1 mt-1">
                 <TrendingDown className="w-3 h-3 text-red-600" />
@@ -167,26 +172,26 @@ export function ReportsScreen({ onBack }: ReportsScreenProps) {
           <button
             type="button"
             className={`py-2 px-4 rounded-t-lg font-medium transition-all ${
-              true ? 'bg-primary text-white' : 'bg-muted text-muted-foreground'
+              true ? 'bg-[#10b981] text-white' : 'bg-[#f3f4f6] text-[#6b7280]'
             }`}
           >
             Sales Analytics
           </button>
           <button
             type="button"
-            className={`py-2 px-4 rounded-t-lg font-medium transition-all bg-muted text-muted-foreground`}
+            className={`py-2 px-4 rounded-t-lg font-medium transition-all bg-[#f3f4f6] text-[#6b7280]`}
           >
             Product Performance
           </button>
           <button
             type="button"
-            className={`py-2 px-4 rounded-t-lg font-medium transition-all bg-muted text-muted-foreground`}
+            className={`py-2 px-4 rounded-t-lg font-medium transition-all bg-[#f3f4f6] text-[#6b7280]`}
           >
             Farmer Performance
           </button>
           <button
             type="button"
-            className={`py-2 px-4 rounded-t-lg font-medium transition-all bg-muted text-muted-foreground`}
+            className={`py-2 px-4 rounded-t-lg font-medium transition-all bg-[#f3f4f6] text-[#6b7280]`}
           >
             Customer Insights
           </button>
@@ -200,24 +205,24 @@ export function ReportsScreen({ onBack }: ReportsScreenProps) {
               {salesData.map((data) => (
                 <div key={data.period} className="flex-1 flex flex-col items-center">
                   <div 
-                    className="w-full bg-primary rounded-t-md transition-all duration-300 hover:bg-primary/80"
+                      className="w-full bg-[#10b981] rounded-t-md transition-all duration-300 hover:bg-[#10b981]/80"
                     style={{ height: `${(data.sales / 70000) * 100}%` }}
                   />
-                  <span className="text-xs text-muted-foreground mt-2">{data.period}</span>
+                  <span className="text-xs text-[#6b7280] mt-2">{data.period}</span>
                 </div>
               ))}
             </div>
-            <div className="grid grid-cols-3 gap-4 mt-4 pt-4 border-t border-border">
+            <div className="grid grid-cols-3 gap-4 mt-4 pt-4 border-t border-[#e5e7eb]">
               <div className="text-center">
-                <p className="text-sm text-muted-foreground">Avg. Order Value</p>
+                <p className="text-sm text-[#6b7280]">Avg. Order Value</p>
                 <p className="text-xl font-semibold">KES 1,680</p>
               </div>
               <div className="text-center">
-                <p className="text-sm text-muted-foreground">Conversion Rate</p>
+                <p className="text-sm text-[#6b7280]">Conversion Rate</p>
                 <p className="text-xl font-semibold">3.2%</p>
               </div>
               <div className="text-center">
-                <p className="text-sm text-muted-foreground">Customer Retention</p>
+                <p className="text-sm text-[#6b7280]">Customer Retention</p>
                 <p className="text-xl font-semibold">68%</p>
               </div>
             </div>
@@ -229,14 +234,14 @@ export function ReportsScreen({ onBack }: ReportsScreenProps) {
           <div className="border-b px-6 py-4 font-semibold">Top Performing Products</div>
           <div className="p-6 space-y-4">
             {topProducts.map((product, index) => (
-              <div key={product.name} className="flex items-center justify-between p-4 bg-muted rounded-lg">
+              <div key={product.name} className="flex items-center justify-between p-4 bg-[#f3f4f6] rounded-lg">
                 <div className="flex items-center space-x-4">
-                  <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
-                    <span className="text-sm font-medium text-primary">#{index + 1}</span>
+                  <div className="w-8 h-8 bg-[#10b981]/10 rounded-full flex items-center justify-center">
+                    <span className="text-sm font-medium text-[#10b981]">#{index + 1}</span>
                   </div>
                   <div>
                     <h3 className="font-medium">{product.name}</h3>
-                    <p className="text-sm text-muted-foreground">{product.units} units sold</p>
+                    <p className="text-sm text-[#6b7280]">{product.units} units sold</p>
                   </div>
                 </div>
                 <div className="text-right">
@@ -262,16 +267,16 @@ export function ReportsScreen({ onBack }: ReportsScreenProps) {
           <div className="border-b px-6 py-4 font-semibold">Top Performing Farmers</div>
           <div className="p-6 space-y-4">
             {topFarmers.map((farmer) => (
-              <div key={farmer.name} className="flex items-center justify-between p-4 bg-muted rounded-lg">
+              <div key={farmer.name} className="flex items-center justify-between p-4 bg-[#f3f4f6] rounded-lg">
                 <div className="flex items-center space-x-4">
-                  <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                    <span className="font-medium text-primary">
+                  <div className="w-10 h-10 bg-[#10b981]/10 rounded-full flex items-center justify-center">
+                    <span className="font-medium text-[#10b981]">
                       {farmer.name.charAt(0).toUpperCase()}
                     </span>
                   </div>
                   <div>
                     <h3 className="font-medium">{farmer.name}</h3>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm text-[#6b7280]">
                       {farmer.products} products • {farmer.orders} orders
                     </p>
                   </div>
@@ -302,8 +307,8 @@ export function ReportsScreen({ onBack }: ReportsScreenProps) {
               <div className="flex justify-between items-center">
                 <span className="text-sm">Age 18-25</span>
                 <div className="flex items-center space-x-2">
-                  <div className="w-24 h-2 bg-muted rounded-full">
-                    <div className="w-1/4 h-2 bg-primary rounded-full"></div>
+                  <div className="w-24 h-2 bg-[#f3f4f6] rounded-full">
+                    <div className="w-1/4 h-2 bg-[#10b981] rounded-full"></div>
                   </div>
                   <span className="text-sm font-medium">25%</span>
                 </div>
@@ -311,8 +316,8 @@ export function ReportsScreen({ onBack }: ReportsScreenProps) {
               <div className="flex justify-between items-center">
                 <span className="text-sm">Age 26-35</span>
                 <div className="flex items-center space-x-2">
-                  <div className="w-24 h-2 bg-muted rounded-full">
-                    <div className="w-2/5 h-2 bg-primary rounded-full"></div>
+                  <div className="w-24 h-2 bg-[#f3f4f6] rounded-full">
+                    <div className="w-2/5 h-2 bg-[#10b981] rounded-full"></div>
                   </div>
                   <span className="text-sm font-medium">40%</span>
                 </div>
@@ -320,8 +325,8 @@ export function ReportsScreen({ onBack }: ReportsScreenProps) {
               <div className="flex justify-between items-center">
                 <span className="text-sm">Age 36-45</span>
                 <div className="flex items-center space-x-2">
-                  <div className="w-24 h-2 bg-muted rounded-full">
-                    <div className="w-1/5 h-2 bg-primary rounded-full"></div>
+                  <div className="w-24 h-2 bg-[#f3f4f6] rounded-full">
+                    <div className="w-1/5 h-2 bg-[#10b981] rounded-full"></div>
                   </div>
                   <span className="text-sm font-medium">20%</span>
                 </div>
@@ -329,8 +334,8 @@ export function ReportsScreen({ onBack }: ReportsScreenProps) {
               <div className="flex justify-between items-center">
                 <span className="text-sm">Age 45+</span>
                 <div className="flex items-center space-x-2">
-                  <div className="w-24 h-2 bg-muted rounded-full">
-                    <div className="w-3/20 h-2 bg-primary rounded-full"></div>
+                  <div className="w-24 h-2 bg-[#f3f4f6] rounded-full">
+                    <div className="w-3/20 h-2 bg-[#10b981] rounded-full"></div>
                   </div>
                   <span className="text-sm font-medium">15%</span>
                 </div>
@@ -342,19 +347,19 @@ export function ReportsScreen({ onBack }: ReportsScreenProps) {
             <div className="border-b px-6 py-4 font-semibold">Purchase Behavior</div>
             <div className="p-6 space-y-4">
               <div className="flex justify-between">
-                <span className="text-sm text-muted-foreground">Repeat Customers</span>
+                <span className="text-sm text-[#6b7280]">Repeat Customers</span>
                 <span className="font-medium">68%</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-sm text-muted-foreground">Avg. Orders/Month</span>
+                <span className="text-sm text-[#6b7280]">Avg. Orders/Month</span>
                 <span className="font-medium">2.4</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-sm text-muted-foreground">Customer Lifetime Value</span>
+                <span className="text-sm text-[#6b7280]">Customer Lifetime Value</span>
                 <span className="font-medium">KES 15,600</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-sm text-muted-foreground">Churn Rate</span>
+                <span className="text-sm text-[#6b7280]">Churn Rate</span>
                 <span className="font-medium text-red-600">12%</span>
               </div>
             </div>

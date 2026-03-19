@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Screen } from "../types/marketplace";
+import { useScreenSize } from "./ResponsiveLayout";
 import { 
   ArrowLeft, 
   MapPin, 
@@ -27,24 +28,25 @@ interface ProfileScreenProps {
 }
 
 export function ProfileScreen({ user, orders, onBack, onNavigateToScreen, onLogout }: ProfileScreenProps) {
+  const screenSize = useScreenSize();
   const [notifications, setNotifications] = useState(true);
   const [marketingEmails, setMarketingEmails] = useState(false);
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center p-4">
+      <div className="min-h-screen bg-[#f9fafb] flex items-center justify-center p-4">
         <div className="w-full max-w-md bg-white rounded-2xl shadow-xl">
           <div className="p-8 text-center">
-            <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
-              <UserIcon className="w-8 h-8 text-muted-foreground" />
+            <div className="w-16 h-16 bg-[#f3f4f6] rounded-full flex items-center justify-center mx-auto mb-4">
+              <UserIcon className="w-8 h-8 text-[#6b7280]" />
             </div>
             <h2 className="text-xl font-semibold mb-2">Please Login</h2>
-            <p className="text-muted-foreground mb-4">
+            <p className="text-[#6b7280] mb-4">
               You need to be logged in to view your profile
             </p>
             <button 
               onClick={onBack} 
-              className="w-full h-12 bg-primary hover:bg-primary/90 text-white rounded-lg font-medium transition"
+              className="w-full h-12 bg-[#10b981] hover:bg-[#059669] text-white rounded-lg font-medium transition"
             >
               Go Back
             </button>
@@ -58,23 +60,25 @@ export function ProfileScreen({ user, orders, onBack, onNavigateToScreen, onLogo
   const totalSpent = orders.reduce((sum, order) => sum + order.total, 0);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#f9fafb]">
       {/* Header */}
-      <div className="bg-white border-b border-border sticky top-0 z-10">
+      <div className="bg-[#ffffff] shadow-sm sticky top-0 z-10">
         <div className="p-4 flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <button
-              type="button"
-              onClick={onBack}
-              className="w-10 h-10 p-0 rounded-full hover:bg-muted transition flex items-center justify-center"
-            >
-              <ArrowLeft className="w-5 h-5" />
-            </button>
-            <h1 className="text-lg font-semibold text-foreground">Profile</h1>
+            {screenSize === 'mobile' && (
+              <button
+                type="button"
+                onClick={onBack}
+                className="w-10 h-10 p-0 rounded-full hover:bg-[#f3f4f6] transition flex items-center justify-center"
+              >
+                <ArrowLeft className="w-5 h-5" />
+              </button>
+            )}
+            <h1 className="text-lg font-semibold text-[#1f2937]">Profile</h1>
           </div>
           <button
             type="button"
-            className="w-10 h-10 p-0 rounded-full hover:bg-muted transition flex items-center justify-center"
+            className="w-10 h-10 p-0 rounded-full hover:bg-[#f3f4f6] transition flex items-center justify-center"
           >
             <Edit className="w-5 h-5" />
           </button>
@@ -85,14 +89,14 @@ export function ProfileScreen({ user, orders, onBack, onNavigateToScreen, onLogo
         {/* Profile Header */}
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center space-x-4">
-            <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center">
+            <div className="w-16 h-16 bg-[#10b981] rounded-full flex items-center justify-center">
               <span className="text-white text-xl font-semibold">
                 {user.name[0]}
               </span>
             </div>
             <div className="flex-1">
-              <h2 className="text-xl font-semibold text-foreground">{user.name}</h2>
-              <div className="flex items-center space-x-4 text-sm text-muted-foreground mt-1">
+              <h2 className="text-xl font-semibold text-[#1f2937]">{user.name}</h2>
+              <div className="flex items-center space-x-4 text-sm text-[#6b7280] mt-1">
                 {user.email && (
                   <div className="flex items-center space-x-1">
                     <Mail className="w-3 h-3" />
@@ -106,7 +110,7 @@ export function ProfileScreen({ user, orders, onBack, onNavigateToScreen, onLogo
                   </div>
                 )}
               </div>
-              <div className="flex items-center space-x-1 text-sm text-muted-foreground mt-1">
+              <div className="flex items-center space-x-1 text-sm text-[#6b7280] mt-1">
                 <MapPin className="w-3 h-3" />
                 <span>{user.location}</span>
               </div>
@@ -115,7 +119,7 @@ export function ProfileScreen({ user, orders, onBack, onNavigateToScreen, onLogo
               <span className="inline-block px-3 py-1 rounded bg-green-100 text-green-800 text-xs font-semibold">
                 {user.isVerified ? 'Verified' : 'Unverified'}
               </span>
-              <p className="text-xs text-muted-foreground mt-1 capitalize">
+              <p className="text-xs text-[#6b7280] mt-1 capitalize">
                 {user.role}
               </p>
             </div>
@@ -125,18 +129,18 @@ export function ProfileScreen({ user, orders, onBack, onNavigateToScreen, onLogo
         {/* Stats Cards */}
         <div className="grid grid-cols-2 gap-4">
           <div className="bg-white rounded-lg shadow p-4 text-center">
-            <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-2">
-              <Package className="w-6 h-6 text-primary" />
+            <div className="w-12 h-12 bg-[#10b981]/10 rounded-full flex items-center justify-center mx-auto mb-2">
+              <Package className="w-6 h-6 text-[#10b981]" />
             </div>
-            <p className="text-2xl font-semibold text-foreground">{orders.length}</p>
-            <p className="text-sm text-muted-foreground">Total Orders</p>
+            <p className="text-2xl font-semibold text-[#1f2937]">{orders.length}</p>
+            <p className="text-sm text-[#6b7280]">Total Orders</p>
           </div>
           <div className="bg-white rounded-lg shadow p-4 text-center">
             <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2">
               <CreditCard className="w-6 h-6 text-green-600" />
             </div>
-            <p className="text-2xl font-semibold text-foreground">KES {totalSpent.toLocaleString()}</p>
-            <p className="text-sm text-muted-foreground">Total Spent</p>
+            <p className="text-2xl font-semibold text-[#1f2937]">KES {totalSpent.toLocaleString()}</p>
+            <p className="text-sm text-[#6b7280]">Total Spent</p>
           </div>
         </div>
 
@@ -147,7 +151,7 @@ export function ProfileScreen({ user, orders, onBack, onNavigateToScreen, onLogo
               <span>Recent Orders</span>
               <button
                 type="button"
-                className="text-sm px-2 py-1 rounded hover:bg-muted transition"
+                className="text-sm px-2 py-1 rounded hover:bg-[#f3f4f6] transition"
                 onClick={() => onNavigateToScreen('orders')}
               >
                 View All
@@ -155,10 +159,10 @@ export function ProfileScreen({ user, orders, onBack, onNavigateToScreen, onLogo
             </div>
             <div className="space-y-3 px-6 py-4">
               {recentOrders.map((order) => (
-                <div key={order.id} className="flex items-center justify-between p-3 bg-muted rounded-lg">
+                <div key={order.id} className="flex items-center justify-between p-3 bg-[#f3f4f6] rounded-lg">
                   <div>
                     <p className="font-medium">Order #{order.id}</p>
-                    <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                    <div className="flex items-center space-x-2 text-sm text-[#6b7280]">
                       <Calendar className="w-3 h-3" />
                       <span>{order.orderDate.toLocaleDateString()}</span>
                     </div>
@@ -185,7 +189,7 @@ export function ProfileScreen({ user, orders, onBack, onNavigateToScreen, onLogo
           <div className="space-y-3 px-6 py-4">
             <button
               type="button"
-              className="w-full flex items-center justify-start h-12 rounded hover:bg-muted transition text-foreground"
+              className="w-full flex items-center justify-start h-12 rounded hover:bg-[#f3f4f6] transition text-[#1f2937]"
               onClick={() => onNavigateToScreen('orders')}
             >
               <Package className="w-5 h-5 mr-3" />
@@ -193,7 +197,7 @@ export function ProfileScreen({ user, orders, onBack, onNavigateToScreen, onLogo
             </button>
             <button
               type="button"
-              className="w-full flex items-center justify-start h-12 rounded hover:bg-muted transition text-foreground"
+              className="w-full flex items-center justify-start h-12 rounded hover:bg-[#f3f4f6] transition text-[#1f2937]"
               onClick={() => onNavigateToScreen('favorites')}
             >
               <Heart className="w-5 h-5 mr-3" />
@@ -201,7 +205,7 @@ export function ProfileScreen({ user, orders, onBack, onNavigateToScreen, onLogo
             </button>
             <button
               type="button"
-              className="w-full flex items-center justify-start h-12 rounded hover:bg-muted transition text-foreground"
+              className="w-full flex items-center justify-start h-12 rounded hover:bg-[#f3f4f6] transition text-[#1f2937]"
               onClick={() => onNavigateToScreen('addresses')}
             >
               <MapPin className="w-5 h-5 mr-3" />
@@ -209,7 +213,7 @@ export function ProfileScreen({ user, orders, onBack, onNavigateToScreen, onLogo
             </button>
             <button
               type="button"
-              className="w-full flex items-center justify-start h-12 rounded hover:bg-muted transition text-foreground"
+              className="w-full flex items-center justify-start h-12 rounded hover:bg-[#f3f4f6] transition text-[#1f2937]"
               onClick={() => onNavigateToScreen('payment-methods')}
             >
               <CreditCard className="w-5 h-5 mr-3" />
@@ -224,43 +228,43 @@ export function ProfileScreen({ user, orders, onBack, onNavigateToScreen, onLogo
           <div className="space-y-4 px-6 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                <Bell className="w-5 h-5 text-muted-foreground" />
+                <Bell className="w-5 h-5 text-[#6b7280]" />
                 <div>
                   <p className="font-medium">Push Notifications</p>
-                  <p className="text-sm text-muted-foreground">Order updates and offers</p>
+                  <p className="text-sm text-[#6b7280]">Order updates and offers</p>
                 </div>
               </div>
               <input
                 type="checkbox"
                 checked={notifications}
                 onChange={e => setNotifications(e.target.checked)}
-                className="w-5 h-5 accent-primary"
+                className="w-5 h-5 accent-[#10b981]"
               />
             </div>
 
-            <div className="border-t border-border my-2" />
+            <div className="border-t border-[#e5e7eb] my-2" />
 
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
-                <Mail className="w-5 h-5 text-muted-foreground" />
+                <Mail className="w-5 h-5 text-[#6b7280]" />
                 <div>
                   <p className="font-medium">Marketing Emails</p>
-                  <p className="text-sm text-muted-foreground">Special offers and promotions</p>
+                  <p className="text-sm text-[#6b7280]">Special offers and promotions</p>
                 </div>
               </div>
               <input
                 type="checkbox"
                 checked={marketingEmails}
                 onChange={e => setMarketingEmails(e.target.checked)}
-                className="w-5 h-5 accent-primary"
+                className="w-5 h-5 accent-[#10b981]"
               />
             </div>
 
-            <div className="border-t border-border my-2" />
+            <div className="border-t border-[#e5e7eb] my-2" />
 
             <button
               type="button"
-              className="w-full flex items-center justify-start h-12 rounded hover:bg-muted transition text-foreground"
+              className="w-full flex items-center justify-start h-12 rounded hover:bg-[#f3f4f6] transition text-[#1f2937]"
               onClick={() => onNavigateToScreen('privacy')}
             >
               <Shield className="w-5 h-5 mr-3" />
@@ -269,7 +273,7 @@ export function ProfileScreen({ user, orders, onBack, onNavigateToScreen, onLogo
 
             <button
               type="button"
-              className="w-full flex items-center justify-start h-12 rounded hover:bg-muted transition text-foreground"
+              className="w-full flex items-center justify-start h-12 rounded hover:bg-[#f3f4f6] transition text-[#1f2937]"
               onClick={() => onNavigateToScreen('settings')}
             >
               <Settings className="w-5 h-5 mr-3" />
@@ -322,7 +326,7 @@ export function ProfileScreen({ user, orders, onBack, onNavigateToScreen, onLogo
         </div>
 
         {/* Account Info */}
-        <div className="text-center text-sm text-muted-foreground">
+        <div className="text-center text-sm text-[#6b7280]">
           <p>Member since {user.createdAt.toLocaleDateString()}</p>
           <p className="mt-1">Kilimobiz v1.0</p>
         </div>

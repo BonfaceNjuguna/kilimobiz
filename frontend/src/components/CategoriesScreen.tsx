@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { Screen, User } from "../types/marketplace";
+import { useScreenSize } from "./ResponsiveLayout";
 import { 
   ArrowLeft, 
   Search, 
@@ -24,8 +25,7 @@ export function CategoriesScreen({
   onBack, 
   onNavigateToScreen, 
   onAddToCart 
-}: CategoriesScreenProps) {
-  const [selectedCategory, setSelectedCategory] = useState<ProductCategory | null>(null);
+}: CategoriesScreenProps) {  const screenSize = useScreenSize();  const [selectedCategory, setSelectedCategory] = useState<ProductCategory | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
 
   const filteredProducts = MOCK_PRODUCTS.filter(product => {
@@ -39,22 +39,24 @@ export function CategoriesScreen({
     return (
       <div className="min-h-screen bg-background">
         {/* Header */}
-        <div className="bg-white border-b border-border sticky top-0 z-10">
+        <div className="bg-[#ffffff] shadow-sm sticky top-0 z-10">
           <div className="p-4">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center space-x-3">
-                <button
-                  type="button"
-                  onClick={() => setSelectedCategory(null)}
-                  className="w-10 h-10 p-0 rounded hover:bg-gray-100 transition flex items-center justify-center"
-                >
-                  <ArrowLeft className="w-5 h-5" />
-                </button>
+                {screenSize === 'mobile' && (
+                  <button
+                    type="button"
+                    onClick={() => setSelectedCategory(null)}
+                    className="w-10 h-10 p-0 rounded hover:bg-gray-100 transition flex items-center justify-center"
+                  >
+                    <ArrowLeft className="w-5 h-5" />
+                  </button>
+                )}
                 <div>
-                  <h1 className="text-lg font-semibold text-foreground">
+                  <h1 className="text-lg font-semibold text-[#1f2937]">
                     {selectedCategory.name}
                   </h1>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-sm text-[#6b7280]">
                     Fresh {selectedCategory.name.toLowerCase()} from local farmers
                   </p>
                 </div>
@@ -67,7 +69,7 @@ export function CategoriesScreen({
               >
                 <ShoppingCart className="w-5 h-5" />
                 {cartItemCount > 0 && (
-                  <span className="absolute -top-1 -right-1 w-5 h-5 text-xs p-0 flex items-center justify-center bg-primary text-white rounded-full">
+                  <span className="absolute -top-1 -right-1 w-5 h-5 text-xs p-0 flex items-center justify-center bg-[#10b981] text-white rounded-full">
                     {cartItemCount}
                   </span>
                 )}
@@ -82,7 +84,7 @@ export function CategoriesScreen({
                 placeholder={`Search ${selectedCategory.name.toLowerCase()}...`}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 h-12 w-full bg-muted border-0 rounded-lg"
+              className="pl-10 h-12 w-full bg-[#f3f4f6] border-0 rounded-lg"
               />
             </div>
           </div>
@@ -182,7 +184,7 @@ export function CategoriesScreen({
 
           {filteredProducts.length === 0 && (
             <div className="text-center py-12">
-              <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-[#f3f4f6] rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl">{selectedCategory.icon}</span>
               </div>
               <h3 className="font-medium text-foreground mb-2">No {selectedCategory.name.toLowerCase()} found</h3>
@@ -202,16 +204,18 @@ export function CategoriesScreen({
       <div className="bg-white border-b border-border sticky top-0 z-10">
         <div className="p-4 flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <button
-              type="button"
-              onClick={onBack}
-              className="w-10 h-10 p-0 rounded hover:bg-gray-100 transition flex items-center justify-center"
-            >
-              <ArrowLeft className="w-5 h-5" />
-            </button>
+            {screenSize === 'mobile' && (
+              <button
+                type="button"
+                onClick={onBack}
+                className="w-10 h-10 p-0 rounded hover:bg-gray-100 transition flex items-center justify-center"
+              >
+                <ArrowLeft className="w-5 h-5" />
+              </button>
+            )}
             <div>
-              <h1 className="text-lg font-semibold text-foreground">Categories</h1>
-              <p className="text-sm text-muted-foreground">
+              <h1 className="text-lg font-semibold text-[#1f2937]">Categories</h1>
+              <p className="text-sm text-[#6b7280]">
                 Browse by product type
               </p>
             </div>
@@ -224,7 +228,7 @@ export function CategoriesScreen({
           >
             <ShoppingCart className="w-5 h-5" />
             {cartItemCount > 0 && (
-              <span className="absolute -top-1 -right-1 w-5 h-5 text-xs p-0 flex items-center justify-center bg-primary text-white rounded-full">
+              <span className="absolute -top-1 -right-1 w-5 h-5 text-xs p-0 flex items-center justify-center bg-[#10b981] text-white rounded-full">
                 {cartItemCount}
               </span>
             )}

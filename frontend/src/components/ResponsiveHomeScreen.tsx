@@ -94,7 +94,7 @@ export function ResponsiveHomeScreen({
   };
 
   const renderMobileHeader = () => (
-    <div className="bg-white border-b border-border sticky top-0 z-20 lg:hidden">
+    <div className="bg-[#ffffff] shadow-sm sticky top-0 z-20 lg:hidden">
       <div className="p-4">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-3">
@@ -102,16 +102,16 @@ export function ResponsiveHomeScreen({
             <button
               type="button"
               onClick={() => setShowMobileSidebar(true)}
-              className="w-10 h-10 p-0 lg:hidden rounded transition font-medium flex items-center justify-center bg-transparent hover:bg-gray-100 text-gray-700"
+              className="w-10 h-10 p-0 lg:hidden rounded transition font-medium flex items-center justify-center bg-transparent hover:bg-[#f3f4f6] text-[#6b7280]"
             >
               <Menu className="w-5 h-5" />
             </button>
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <Leaf className="w-5 h-5 text-white" />
+              <div className="w-8 h-8 bg-[#10b981] rounded-lg flex items-center justify-center">
+                <Leaf className="w-5 h-5 text-[#ffffff]" />
               </div>
               <div>
-                <h1 className="font-semibold text-lg text-foreground">Kilimobiz</h1>
+                <h1 className="font-semibold text-lg text-[#1f2937]">Kilimobiz</h1>
               </div>
             </div>
           </div>
@@ -119,7 +119,7 @@ export function ResponsiveHomeScreen({
             {/* Replace Button for notifications */}
             <button
               type="button"
-              className="w-10 h-10 p-0 rounded transition flex items-center justify-center bg-transparent hover:bg-gray-100 text-gray-700"
+              className="w-10 h-10 p-0 rounded transition flex items-center justify-center bg-transparent hover:bg-[#f3f4f6] text-[#6b7280]"
             >
               <Bell className="w-5 h-5" />
             </button>
@@ -127,11 +127,11 @@ export function ResponsiveHomeScreen({
             <button
               type="button"
               onClick={() => onNavigateToScreen('cart')}
-              className="w-10 h-10 p-0 relative rounded transition flex items-center justify-center bg-transparent hover:bg-gray-100 text-gray-700"
+              className="w-10 h-10 p-0 relative rounded transition flex items-center justify-center bg-transparent hover:bg-[#f3f4f6] text-[#6b7280]"
             >
               <ShoppingCart className="w-5 h-5" />
               {cartItemCount > 0 && (
-                <span className="absolute -top-1 -right-1 w-5 h-5 p-0 text-xs flex items-center justify-center bg-primary text-white rounded-full">
+                <span className="absolute -top-1 -right-1 w-5 h-5 p-0 text-xs flex items-center justify-center bg-[#10b981] text-white rounded-full">
                   {cartItemCount}
                 </span>
               )}
@@ -141,14 +141,14 @@ export function ResponsiveHomeScreen({
 
         {/* Search Bar */}
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[#6b7280]" />
           {/* Replace Input for search */}
           <input
             type="text"
             placeholder="Search fresh products..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 h-12 bg-muted border-0 rounded-lg w-full text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary focus:outline-none"
+            className="pl-10 h-12 bg-[#f3f4f6] border-0 rounded-lg w-full text-[#1f2937] placeholder:text-[#6b7280] focus:ring-2 focus:ring-[#10b981] focus:outline-none"
           />
         </div>
       </div>
@@ -159,10 +159,10 @@ export function ResponsiveHomeScreen({
     <div className="mb-8">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-semibold text-foreground mb-2">
+          <h1 className="text-2xl font-semibold text-[#1f2937] mb-2">
             Welcome back, {user?.name || 'Guest'}!
           </h1>
-          <p className="text-muted-foreground">
+          <p className="text-[#6b7280]">
             Discover fresh products from local farmers
           </p>
         </div>
@@ -170,14 +170,14 @@ export function ResponsiveHomeScreen({
           <div className="flex items-center space-x-2">
             <button
               type="button"
-              className={`w-10 h-10 p-0 rounded transition flex items-center justify-center ${viewType === 'grid' ? 'bg-primary text-white' : 'bg-transparent text-gray-700 hover:bg-gray-100'}`}
+              className={`w-10 h-10 p-0 rounded transition flex items-center justify-center ${viewType === 'grid' ? 'bg-[#10b981] text-white' : 'bg-transparent text-[#6b7280] hover:bg-[#f3f4f6]'}`}
               onClick={() => setViewType('grid')}
             >
               <Grid className="w-4 h-4" />
             </button>
             <button
               type="button"
-              className={`w-10 h-10 p-0 rounded transition flex items-center justify-center ${viewType === 'list' ? 'bg-primary text-white' : 'bg-transparent text-gray-700 hover:bg-gray-100'}`}
+              className={`w-10 h-10 p-0 rounded transition flex items-center justify-center ${viewType === 'list' ? 'bg-[#10b981] text-white' : 'bg-transparent text-[#6b7280] hover:bg-[#f3f4f6]'}`}
               onClick={() => setViewType('list')}
             >
               <List className="w-4 h-4" />
@@ -185,7 +185,7 @@ export function ResponsiveHomeScreen({
           </div>
           <button
             type="button"
-            className="flex items-center space-x-2 px-4 py-2 rounded-lg bg-transparent border border-border text-foreground hover:bg-muted transition-all"
+            className="flex items-center space-x-2 px-4 py-2 rounded-lg bg-transparent border border-[#e5e7eb] text-[#1f2937] hover:bg-[#f3f4f6] transition-all"
           >
             <Filter className="w-4 h-4 mr-2" />
             <span>Filters</span>
@@ -197,14 +197,14 @@ export function ResponsiveHomeScreen({
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-6">
         <div className="lg:col-span-3">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-[#6b7280]" />
             {/* Replace Input for search */}
             <input
               type="text"
               placeholder="Search fresh products..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-12 h-12 text-base bg-muted border-0 rounded-lg w-full text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary focus:outline-none"
+              className="pl-12 h-12 text-base bg-[#f3f4f6] border-0 rounded-lg w-full text-[#1f2937] placeholder:text-[#6b7280] focus:ring-2 focus:ring-[#10b981] focus:outline-none"
             />
           </div>
         </div>
@@ -212,7 +212,7 @@ export function ResponsiveHomeScreen({
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="w-full h-12 px-3 bg-background border border-border rounded-lg text-foreground"
+            className="w-full h-12 px-3 bg-[#ffffff] border border-[#e5e7eb] rounded-lg text-[#1f2937]"
           >
             <option value="all">All Categories</option>
             {PRODUCT_CATEGORIES.map((category) => (
@@ -229,7 +229,7 @@ export function ResponsiveHomeScreen({
   const renderProductCard = (product: Product, isListView = false) => (
     <div
       key={product.id}
-      className={`bg-white rounded-lg cursor-pointer hover:shadow-lg transition-all duration-200 group ${isListView ? 'w-full' : ''}`}
+      className={`bg-[#ffffff] rounded-lg cursor-pointer hover:shadow-lg transition-all duration-200 group ${isListView ? 'w-full' : ''}`}
       onClick={() => onNavigateToScreen('product-details', product)}
     >
       <div className={`p-0 ${isListView ? 'flex' : ''}`}>
@@ -263,13 +263,13 @@ export function ResponsiveHomeScreen({
         </div>
         <div className={`${isListView ? 'flex-1 p-4' : 'p-4'}`}>
           <div className="space-y-2">
-            <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-1">
+            <h3 className="font-semibold text-[#1f2937] group-hover:text-[#10b981] transition-colors line-clamp-1">
               {product.name}
             </h3>
-            <p className="text-sm text-muted-foreground line-clamp-2">
+            <p className="text-sm text-[#6b7280] line-clamp-2">
               {product.description}
             </p>
-            <div className="flex items-center space-x-4 text-sm text-muted-foreground">
+            <div className="flex items-center space-x-4 text-sm text-[#6b7280]">
               <div className="flex items-center space-x-1">
                 <Star className="w-3 h-3 fill-yellow-400 text-yellow-400" />
                 <span>{product.rating}</span>
@@ -285,10 +285,10 @@ export function ResponsiveHomeScreen({
             </div>
             <div className="flex items-center justify-between">
               <div>
-                <p className="font-semibold text-lg text-primary">
+                  <p className="font-semibold text-lg text-[#10b981]">
                   KES {product.price}
                 </p>
-                <p className="text-sm text-muted-foreground">{product.unit}</p>
+                <p className="text-sm text-[#6b7280]">{product.unit}</p>
               </div>
               <button
                 type="button"
@@ -296,7 +296,7 @@ export function ResponsiveHomeScreen({
                   e.stopPropagation();
                   onAddToCart(product);
                 }}
-                className="bg-primary hover:bg-primary/90 text-white px-3 py-2 rounded text-sm flex items-center"
+                className="bg-[#10b981] hover:bg-[#059669] text-white px-3 py-2 rounded text-sm flex items-center"
               >
                 <Plus className="w-4 h-4 mr-1" />
                 Add
@@ -329,13 +329,13 @@ export function ResponsiveHomeScreen({
       {showMobileSidebar && screenSize === 'mobile' && (
         <div className="fixed inset-0 z-50 lg:hidden">
           <div className="fixed inset-0 bg-black/50" onClick={() => setShowMobileSidebar(false)} />
-          <div className="fixed left-0 top-0 bottom-0 w-80 bg-card">
-            <div className="flex items-center justify-between p-4 border-b border-border">
-              <h2 className="font-semibold">Menu</h2>
+          <div className="fixed left-0 top-0 bottom-0 w-80 bg-[#ffffff]">
+            <div className="flex items-center justify-between p-4 border-b border-[#e5e7eb]">
+              <h2 className="font-semibold text-[#1f2937]">Menu</h2>
               <button
                 type="button"
                 onClick={() => setShowMobileSidebar(false)}
-                className="w-8 h-8 p-0 rounded transition flex items-center justify-center bg-transparent hover:bg-gray-100 text-gray-700"
+                className="w-8 h-8 p-0 rounded transition flex items-center justify-center bg-transparent hover:bg-[#f3f4f6] text-[#6b7280]"
               >
                 <X className="w-4 h-4" />
               </button>

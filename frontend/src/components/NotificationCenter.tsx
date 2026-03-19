@@ -119,8 +119,8 @@ export function NotificationCenter({ userId, userRole, trigger }: NotificationCe
       {isOpen && (
         <div className="fixed inset-0 z-50 flex justify-end">
           <div className="fixed inset-0 bg-black/50" onClick={() => setIsOpen(false)} />
-          <div className="relative w-full sm:w-96 bg-white border-l border-border shadow-xl h-full flex flex-col">
-            <div className="flex items-center justify-between px-6 py-4 border-b">
+          <div className="relative w-full sm:w-96 bg-[#ffffff] shadow-xl h-full flex flex-col rounded-l-3xl">
+            <div className="flex items-center justify-between px-6 py-4 shadow-sm">
               <div className="flex items-center space-x-2">
                 <Bell className="w-5 h-5" />
                 <span className="font-semibold">Notifications</span>
@@ -143,9 +143,9 @@ export function NotificationCenter({ userId, userRole, trigger }: NotificationCe
             <div className="flex-1 overflow-y-auto p-4">
               {notifications.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-12 text-center">
-                  <Bell className="w-12 h-12 text-muted-foreground mb-4" />
-                  <h3 className="font-medium text-foreground mb-2">No notifications yet</h3>
-                  <p className="text-sm text-muted-foreground">
+                  <Bell className="w-12 h-12 text-[#6b7280] mb-4" />
+                  <h3 className="font-medium text-[#1f2937] mb-2">No notifications yet</h3>
+                  <p className="text-sm text-[#6b7280]">
                     You'll see important updates and order status changes here
                   </p>
                 </div>
@@ -154,7 +154,7 @@ export function NotificationCenter({ userId, userRole, trigger }: NotificationCe
                   {notifications.map((notification) => (
                     <div
                       key={notification.id}
-                      className={`border rounded-lg ${getNotificationColor(notification.type)} ${!notification.isRead ? 'ring-2 ring-primary/20' : ''} transition-all duration-200`}
+                      className={`border rounded-lg ${getNotificationColor(notification.type)} ${!notification.isRead ? 'ring-2 ring-[#10b981]/20' : ''} transition-all duration-200`}
                     >
                       <div className="p-4 flex items-start space-x-3">
                         <div className="flex-shrink-0 mt-0.5">
@@ -163,15 +163,15 @@ export function NotificationCenter({ userId, userRole, trigger }: NotificationCe
                         <div className="flex-1 min-w-0">
                           <div className="flex items-start justify-between">
                             <div className="flex-1 min-w-0">
-                              <h4 className={`text-sm font-medium mb-1 ${!notification.isRead ? 'text-foreground' : 'text-muted-foreground'}`}>
+                              <h4 className={`text-sm font-medium mb-1 ${!notification.isRead ? 'text-[#1f2937]' : 'text-[#6b7280]'}`}>
                                 {notification.title}
                               </h4>
-                              <p className="text-sm text-muted-foreground leading-relaxed">
+                              <p className="text-sm text-[#6b7280] leading-relaxed">
                                 {notification.message}
                               </p>
                               <div className="flex items-center space-x-2 mt-2">
-                                <Clock className="w-3 h-3 text-muted-foreground" />
-                                <span className="text-xs text-muted-foreground">
+                                <Clock className="w-3 h-3 text-[#6b7280]" />
+                                <span className="text-xs text-[#6b7280]">
                                   {formatRelativeTime(notification.timestamp)}
                                 </span>
                               </div>
@@ -189,7 +189,7 @@ export function NotificationCenter({ userId, userRole, trigger }: NotificationCe
                               <button
                                 type="button"
                                 onClick={() => clearNotification(notification.id)}
-                                className="h-6 w-6 p-0 flex items-center justify-center rounded text-muted-foreground hover:text-red-600 transition"
+                                  className="h-6 w-6 p-0 flex items-center justify-center rounded text-[#6b7280] hover:text-[#ef4444] transition"
                               >
                                 <X className="w-3 h-3" />
                               </button>

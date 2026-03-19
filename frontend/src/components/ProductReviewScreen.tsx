@@ -13,6 +13,7 @@ import {
   Calendar,
   Leaf
 } from "lucide-react";
+import { useScreenSize } from "./ResponsiveLayout";
 
 interface ProductReviewScreenProps {
   onBack: () => void;
@@ -39,6 +40,7 @@ interface PendingProduct {
 }
 
 export function ProductReviewScreen({ onBack }: ProductReviewScreenProps) {
+  const screenSize = useScreenSize();
   const [activeTab, setActiveTab] = useState('pending');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedProduct, setSelectedProduct] = useState<PendingProduct | null>(null);
@@ -143,22 +145,22 @@ export function ProductReviewScreen({ onBack }: ProductReviewScreenProps) {
 
   if (selectedProduct) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-[#f9fafb]">
         {/* Header */}
-        <div className="bg-white border-b border-border sticky top-0 z-10">
+        <div className="bg-[#ffffff] shadow-sm sticky top-0 z-10">
           <div className="p-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 <button
                   type="button"
                   onClick={() => setSelectedProduct(null)}
-                  className="w-10 h-10 p-0 rounded-full hover:bg-muted transition flex items-center justify-center"
+                  className="w-10 h-10 p-0 rounded-full hover:bg-[#f3f4f6] transition flex items-center justify-center"
                 >
                   <ArrowLeft className="w-5 h-5" />
                 </button>
                 <div>
-                  <h1 className="text-lg font-semibold text-foreground">Product Review</h1>
-                  <p className="text-sm text-muted-foreground">
+                  <h1 className="text-lg font-semibold text-[#1f2937]">Product Review</h1>
+                  <p className="text-sm text-[#6b7280]">
                     Review product details and approve or reject
                   </p>
                 </div>
@@ -173,7 +175,7 @@ export function ProductReviewScreen({ onBack }: ProductReviewScreenProps) {
         <div className="p-4 space-y-6">
           {/* Product Images */}
           <div className="bg-white rounded-lg shadow p-4">
-            <div className="aspect-square bg-muted rounded-lg overflow-hidden mb-4">
+            <div className="aspect-square bg-[#f3f4f6] rounded-lg overflow-hidden mb-4">
               <img
                 src={selectedProduct.images[0]}
                 alt={selectedProduct.name}
@@ -181,7 +183,7 @@ export function ProductReviewScreen({ onBack }: ProductReviewScreenProps) {
               />
             </div>
             <div className="flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-foreground">
+              <h2 className="text-xl font-semibold text-[#1f2937]">
                 {selectedProduct.name}
               </h2>
               {selectedProduct.isOrganic && (
@@ -198,22 +200,22 @@ export function ProductReviewScreen({ onBack }: ProductReviewScreenProps) {
             <div className="border-b px-6 py-4 font-semibold">Product Information</div>
             <div className="space-y-4 p-6">
               <div>
-                <label className="text-sm font-medium text-muted-foreground">Description</label>
-                <p className="text-foreground mt-1">{selectedProduct.description}</p>
+                <label className="text-sm font-medium text-[#6b7280]">Description</label>
+                <p className="text-[#1f2937] mt-1">{selectedProduct.description}</p>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-muted-foreground">Price</label>
-                  <p className="text-foreground font-semibold">KES {selectedProduct.price}</p>
+                  <label className="text-sm font-medium text-[#6b7280]">Price</label>
+                  <p className="text-[#1f2937] font-semibold">KES {selectedProduct.price}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-muted-foreground">Unit</label>
-                  <p className="text-foreground">{selectedProduct.unit}</p>
+                  <label className="text-sm font-medium text-[#6b7280]">Unit</label>
+                  <p className="text-[#1f2937]">{selectedProduct.unit}</p>
                 </div>
               </div>
               <div>
-                <label className="text-sm font-medium text-muted-foreground">Category</label>
-                <p className="text-foreground">{selectedProduct.category}</p>
+                <label className="text-sm font-medium text-[#6b7280]">Category</label>
+                <p className="text-[#1f2937]">{selectedProduct.category}</p>
               </div>
             </div>
           </div>
@@ -223,12 +225,12 @@ export function ProductReviewScreen({ onBack }: ProductReviewScreenProps) {
             <div className="border-b px-6 py-4 font-semibold">Seller Information</div>
             <div className="space-y-4 p-6">
               <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
+                <div className="w-12 h-12 bg-[#10b981] rounded-full flex items-center justify-center">
                   <User className="w-6 h-6 text-white" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-semibold text-foreground">{selectedProduct.seller.name}</h3>
-                  <div className="flex items-center space-x-4 text-sm text-muted-foreground">
+                  <h3 className="font-semibold text-[#1f2937]">{selectedProduct.seller.name}</h3>
+                  <div className="flex items-center space-x-4 text-sm text-[#6b7280]">
                     <div className="flex items-center space-x-1">
                       <MapPin className="w-3 h-3" />
                       <span>{selectedProduct.seller.location}</span>
@@ -246,7 +248,7 @@ export function ProductReviewScreen({ onBack }: ProductReviewScreenProps) {
                   </span>
                 )}
               </div>
-              <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+              <div className="flex items-center space-x-2 text-sm text-[#6b7280]">
                 <Calendar className="w-4 h-4" />
                 <span>Submitted {selectedProduct.submittedDate.toLocaleDateString()}</span>
               </div>
@@ -280,22 +282,24 @@ export function ProductReviewScreen({ onBack }: ProductReviewScreenProps) {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#f9fafb]">
       {/* Header */}
-      <div className="bg-white border-b border-border sticky top-0 z-10">
+      <div className="bg-white border-b border-[#e5e7eb] sticky top-0 z-10">
         <div className="p-4">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center space-x-3">
-              <button
-                type="button"
-                onClick={onBack}
-                className="w-10 h-10 p-0 rounded-full hover:bg-muted transition flex items-center justify-center"
-              >
-                <ArrowLeft className="w-5 h-5" />
-              </button>
+              {screenSize === 'mobile' && (
+                <button
+                  type="button"
+                  onClick={onBack}
+                  className="w-10 h-10 p-0 rounded-full hover:bg-[#f3f4f6] transition flex items-center justify-center"
+                >
+                  <ArrowLeft className="w-5 h-5" />
+                </button>
+              )}
               <div>
-                <h1 className="text-lg font-semibold text-foreground">Product Review</h1>
-                <p className="text-sm text-muted-foreground">
+                <h1 className="text-lg font-semibold text-[#1f2937]">Product Review</h1>
+                <p className="text-sm text-[#6b7280]">
                   Review and approve seller product submissions
                 </p>
               </div>
@@ -307,13 +311,13 @@ export function ProductReviewScreen({ onBack }: ProductReviewScreenProps) {
 
           {/* Search Bar */}
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[#6b7280]" />
             <input
               type="text"
               placeholder="Search products or sellers..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 h-12 bg-muted border-0 rounded-lg w-full text-foreground placeholder:text-muted-foreground"
+              className="pl-10 h-12 bg-[#f3f4f6] border-0 rounded-lg w-full text-[#1f2937] placeholder:text-[#6b7280]"
             />
           </div>
         </div>
@@ -326,24 +330,24 @@ export function ProductReviewScreen({ onBack }: ProductReviewScreenProps) {
             <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-2">
               <Clock className="w-6 h-6 text-yellow-600" />
             </div>
-            <p className="text-2xl font-semibold text-foreground">{pendingCount}</p>
-            <p className="text-sm text-muted-foreground">Pending Review</p>
+            <p className="text-2xl font-semibold text-[#1f2937]">{pendingCount}</p>
+            <p className="text-sm text-[#6b7280]">Pending Review</p>
           </div>
 
           <div className="bg-white rounded-lg shadow p-4 text-center">
             <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2">
               <CheckCircle className="w-6 h-6 text-green-600" />
             </div>
-            <p className="text-2xl font-semibold text-foreground">{approvedCount}</p>
-            <p className="text-sm text-muted-foreground">Approved</p>
+            <p className="text-2xl font-semibold text-[#1f2937]">{approvedCount}</p>
+            <p className="text-sm text-[#6b7280]">Approved</p>
           </div>
 
           <div className="bg-white rounded-lg shadow p-4 text-center">
             <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-2">
               <XCircle className="w-6 h-6 text-red-600" />
             </div>
-            <p className="text-2xl font-semibold text-foreground">{rejectedCount}</p>
-            <p className="text-sm text-muted-foreground">Rejected</p>
+            <p className="text-2xl font-semibold text-[#1f2937]">{rejectedCount}</p>
+            <p className="text-sm text-[#6b7280]">Rejected</p>
           </div>
         </div>
 
@@ -353,8 +357,8 @@ export function ProductReviewScreen({ onBack }: ProductReviewScreenProps) {
             type="button"
             className={`flex-1 py-2 px-4 rounded-t-lg font-medium transition-all ${
               activeTab === 'all'
-                ? 'bg-primary text-white'
-                : 'bg-muted text-muted-foreground'
+                ? 'bg-[#10b981] text-white'
+                : 'bg-[#f3f4f6] text-[#6b7280]'
             }`}
             onClick={() => setActiveTab('all')}
           >
@@ -364,8 +368,8 @@ export function ProductReviewScreen({ onBack }: ProductReviewScreenProps) {
             type="button"
             className={`flex-1 py-2 px-4 rounded-t-lg font-medium transition-all ${
               activeTab === 'pending'
-                ? 'bg-primary text-white'
-                : 'bg-muted text-muted-foreground'
+                ? 'bg-[#10b981] text-white'
+                : 'bg-[#f3f4f6] text-[#6b7280]'
             }`}
             onClick={() => setActiveTab('pending')}
           >
@@ -375,8 +379,8 @@ export function ProductReviewScreen({ onBack }: ProductReviewScreenProps) {
             type="button"
             className={`flex-1 py-2 px-4 rounded-t-lg font-medium transition-all ${
               activeTab === 'approved'
-                ? 'bg-primary text-white'
-                : 'bg-muted text-muted-foreground'
+                ? 'bg-[#10b981] text-white'
+                : 'bg-[#f3f4f6] text-[#6b7280]'
             }`}
             onClick={() => setActiveTab('approved')}
           >
@@ -386,8 +390,8 @@ export function ProductReviewScreen({ onBack }: ProductReviewScreenProps) {
             type="button"
             className={`flex-1 py-2 px-4 rounded-t-lg font-medium transition-all ${
               activeTab === 'rejected'
-                ? 'bg-primary text-white'
-                : 'bg-muted text-muted-foreground'
+                ? 'bg-[#10b981] text-white'
+                : 'bg-[#f3f4f6] text-[#6b7280]'
             }`}
             onClick={() => setActiveTab('rejected')}
           >
@@ -399,9 +403,9 @@ export function ProductReviewScreen({ onBack }: ProductReviewScreenProps) {
         <div className="space-y-4 pb-8">
           {filteredProducts.length === 0 ? (
             <div className="text-center py-12">
-              <Package className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-              <h3 className="font-medium text-foreground mb-2">No products found</h3>
-              <p className="text-sm text-muted-foreground">
+              <Package className="w-16 h-16 text-[#6b7280] mx-auto mb-4" />
+              <h3 className="font-medium text-[#1f2937] mb-2">No products found</h3>
+              <p className="text-sm text-[#6b7280]">
                 {searchQuery ? 'Try adjusting your search' : 'No products in this category'}
               </p>
             </div>
@@ -418,8 +422,8 @@ export function ProductReviewScreen({ onBack }: ProductReviewScreenProps) {
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between mb-2">
                         <div className="flex-1 min-w-0 pr-4">
-                          <h3 className="font-semibold text-foreground mb-1 truncate">{product.name}</h3>
-                          <p className="text-sm text-muted-foreground line-clamp-2 mb-2">
+                          <h3 className="font-semibold text-[#1f2937] mb-1 truncate">{product.name}</h3>
+                          <p className="text-sm text-[#6b7280] line-clamp-2 mb-2">
                             {product.description}
                           </p>
                         </div>
@@ -427,8 +431,8 @@ export function ProductReviewScreen({ onBack }: ProductReviewScreenProps) {
                           {product.status}
                         </span>
                       </div>
-                      <div className="flex items-center space-x-4 text-sm text-muted-foreground mb-3">
-                        <span className="font-semibold text-primary">
+                      <div className="flex items-center space-x-4 text-sm text-[#6b7280] mb-3">
+                        <span className="font-semibold text-[#10b981]">
                           KES {product.price} {product.unit}
                         </span>
                         <span className="truncate">{product.seller.name}</span>
@@ -436,10 +440,10 @@ export function ProductReviewScreen({ onBack }: ProductReviewScreenProps) {
                       </div>
                     </div>
                   </div>
-                  <div className="flex flex-wrap gap-2 pt-2 border-t border-border">
+                  <div className="flex flex-wrap gap-2 pt-2 border-t border-[#e5e7eb]">
                     <button
                       type="button"
-                      className="border rounded px-3 py-1 text-sm flex-shrink-0 flex items-center hover:bg-muted transition"
+                      className="border rounded px-3 py-1 text-sm flex-shrink-0 flex items-center hover:bg-[#f3f4f6] transition"
                       onClick={() => setSelectedProduct(product)}
                     >
                       <Eye className="w-3 h-3 mr-1" />

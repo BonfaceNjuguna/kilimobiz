@@ -35,7 +35,7 @@ export function ResponsiveLayout({
   className, 
   sidebar, 
   header,
-  showSidebar = false 
+  showSidebar = true 
 }: ResponsiveLayoutProps) {
   const [screenSize, setScreenSize] = useState<'mobile' | 'tablet' | 'desktop'>('mobile');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
@@ -62,14 +62,24 @@ export function ResponsiveLayout({
     screenSize
   };
 
-  if (screenSize === 'mobile' || !showSidebar) {
+  if (screenSize === 'mobile') {
     return (
       <ResponsiveLayoutContext.Provider value={contextValue}>
-        <div className={cn("min-h-screen bg-background", className)}>
+        <div className={cn("min-h-screen bg-[#f9fafb]", className)}>
           {header}
-          <main className="p-4 pb-20">
+          <main className="p-4 pb-24">
             {children}
           </main>
+          {/* Mobile Bottom Navigation */}
+          {sidebar && (
+            <div className="fixed bottom-0 left-0 right-0 bg-[#ffffff] shadow-xl rounded-t-2xl z-40">
+              <div className="overflow-x-auto">
+                <div className="p-2 flex gap-1 justify-around">
+                  {sidebar}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </ResponsiveLayoutContext.Provider>
     );
@@ -80,26 +90,14 @@ export function ResponsiveLayout({
     
     return (
       <ResponsiveLayoutContext.Provider value={contextValue}>
-        <div className="min-h-screen bg-background flex">
+        <div className="min-h-screen bg-[#f9fafb] flex">
           {sidebar && (
             <aside 
               className={cn(
-                "fixed left-0 top-0 bottom-0 bg-card border-r border-border z-40 transition-all duration-300 overflow-y-auto",
-                sidebarCollapsed ? "w-20" : "w-70"
+                "fixed left-0 top-0 bottom-0 bg-[#ffffff] shadow-lg z-40 transition-all duration-300 overflow-y-auto"
               )}
               style={{ width: sidebarWidth }}
             >
-              <div className="flex items-center justify-between p-4 border-b border-border">
-                {!sidebarCollapsed && <h2 className="font-semibold">Menu</h2>}
-                {/* Sidebar collapse button */}
-                <button
-                  type="button"
-                  onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-                  className="w-8 h-8 p-0 rounded transition flex items-center justify-center bg-transparent hover:bg-gray-100"
-                >
-                  {sidebarCollapsed ? <Menu className="w-4 h-4" /> : <X className="w-4 h-4" />}
-                </button>
-              </div>
               {sidebar}
             </aside>
           )}
@@ -120,29 +118,18 @@ export function ResponsiveLayout({
   }
 
   // Desktop layout
-  const sidebarWidth = sidebarCollapsed ? '80px' : '320px';
+  const sidebarWidth = '280px';
   
   return (
     <ResponsiveLayoutContext.Provider value={contextValue}>
-      <div className="min-h-screen bg-background flex">
+      <div className="min-h-screen bg-[#f9fafb] flex">
         {sidebar && (
           <aside 
             className={cn(
-              "fixed left-0 top-0 bottom-0 bg-card border-r border-border z-40 transition-all duration-300 overflow-y-auto"
+              "fixed left-0 top-0 bottom-0 bg-[#ffffff] shadow-lg z-40 overflow-y-auto"
             )}
             style={{ width: sidebarWidth }}
           >
-            <div className="flex items-center justify-between p-4 border-b border-border">
-              {!sidebarCollapsed && <h2 className="font-semibold">Navigation</h2>}
-              {/* Sidebar collapse button */}
-              <button
-                type="button"
-                onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-                className="w-8 h-8 p-0 rounded transition flex items-center justify-center bg-transparent hover:bg-gray-100"
-              >
-                {sidebarCollapsed ? <Menu className="w-4 h-4" /> : <X className="w-4 h-4" />}
-              </button>
-            </div>
             {sidebar}
           </aside>
         )}

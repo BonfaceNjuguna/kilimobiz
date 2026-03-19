@@ -12,6 +12,7 @@ import {
   Phone,
   ArrowLeft
 } from "lucide-react";
+import { useScreenSize } from "./ResponsiveLayout";
 
 interface UserManagementScreenProps {
   onBack: () => void;
@@ -74,6 +75,8 @@ export function UserManagementScreen({ onBack }: UserManagementScreenProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedRole, setSelectedRole] = useState<'all' | 'customer' | 'farmer' | 'admin'>('all');
   const [selectedStatus, setSelectedStatus] = useState<'all' | 'active' | 'inactive' | 'banned'>('all');
+  
+  const screenSize = useScreenSize();
 
   const filteredUsers = mockUsers.filter(user => {
     const matchesSearch = user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -107,22 +110,24 @@ export function UserManagementScreen({ onBack }: UserManagementScreenProps) {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
-          <button
-            type="button"
-            onClick={onBack}
-            className="flex items-center space-x-2 rounded px-3 py-2 hover:bg-muted transition"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            <span>Back</span>
-          </button>
+          {screenSize === 'mobile' && (
+            <button
+              type="button"
+              onClick={onBack}
+              className="flex items-center space-x-2 rounded px-3 py-2 hover:bg-[#f3f4f6] transition"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span>Back</span>
+            </button>
+          )}
           <div>
             <h1 className="text-2xl font-semibold">User Management</h1>
-            <p className="text-muted-foreground">Manage customers, farmers, and admin users</p>
+            <p className="text-[#6b7280]">Manage customers, farmers, and admin users</p>
           </div>
         </div>
         <button
           type="button"
-          className="flex items-center space-x-2 rounded bg-primary text-white px-4 py-2 font-medium hover:bg-primary/90 transition"
+          className="flex items-center space-x-2 rounded bg-[#10b981] text-white px-4 py-2 font-medium hover:bg-[#059669] transition"
         >
           <UserPlus className="w-4 h-4" />
           <span>Add User</span>
@@ -134,7 +139,7 @@ export function UserManagementScreen({ onBack }: UserManagementScreenProps) {
         <div className="rounded-lg shadow bg-white p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-muted-foreground">Total Users</p>
+              <p className="text-sm text-[#6b7280]">Total Users</p>
               <p className="text-2xl font-semibold">1,234</p>
             </div>
             <Users className="w-8 h-8 text-blue-600" />
@@ -143,7 +148,7 @@ export function UserManagementScreen({ onBack }: UserManagementScreenProps) {
         <div className="rounded-lg shadow bg-white p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-muted-foreground">Active Farmers</p>
+              <p className="text-sm text-[#6b7280]">Active Farmers</p>
               <p className="text-2xl font-semibold text-green-600">89</p>
             </div>
             <Users className="w-8 h-8 text-green-600" />
@@ -152,7 +157,7 @@ export function UserManagementScreen({ onBack }: UserManagementScreenProps) {
         <div className="rounded-lg shadow bg-white p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-muted-foreground">Customers</p>
+              <p className="text-sm text-[#6b7280]">Customers</p>
               <p className="text-2xl font-semibold text-blue-600">1,120</p>
             </div>
             <Users className="w-8 h-8 text-blue-600" />
@@ -161,7 +166,7 @@ export function UserManagementScreen({ onBack }: UserManagementScreenProps) {
         <div className="rounded-lg shadow bg-white p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-muted-foreground">New This Month</p>
+              <p className="text-sm text-[#6b7280]">New This Month</p>
               <p className="text-2xl font-semibold text-purple-600">25</p>
             </div>
             <UserPlus className="w-8 h-8 text-purple-600" />
@@ -173,19 +178,19 @@ export function UserManagementScreen({ onBack }: UserManagementScreenProps) {
       <div className="rounded-lg shadow bg-white p-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[#6b7280]" />
             <input
               type="text"
               placeholder="Search users..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 h-12 w-full rounded-lg bg-muted border-0 text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary focus:outline-none"
+              className="pl-10 h-12 w-full rounded-lg bg-[#f3f4f6] border-0 text-[#1f2937] placeholder:text-[#6b7280] focus:ring-2 focus:ring-[#10b981] focus:outline-none"
             />
           </div>
           <select
             value={selectedRole}
             onChange={(e) => setSelectedRole(e.target.value as 'all' | 'customer' | 'farmer' | 'admin')}
-            className="w-full h-10 px-3 bg-background border border-border rounded-lg text-foreground"
+            className="w-full h-10 px-3 bg-[#f9fafb] border border-[#e5e7eb] rounded-lg text-[#1f2937]"
           >
             <option value="all">All Roles</option>
             <option value="customer">Customers</option>
@@ -219,28 +224,28 @@ export function UserManagementScreen({ onBack }: UserManagementScreenProps) {
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-border">
-                  <th className="text-left py-3 px-4 font-medium text-muted-foreground">User</th>
-                  <th className="text-left py-3 px-4 font-medium text-muted-foreground">Role</th>
-                  <th className="text-left py-3 px-4 font-medium text-muted-foreground">Status</th>
-                  <th className="text-left py-3 px-4 font-medium text-muted-foreground">Activity</th>
-                  <th className="text-left py-3 px-4 font-medium text-muted-foreground">Stats</th>
-                  <th className="text-left py-3 px-4 font-medium text-muted-foreground">Actions</th>
+                <tr className="border-b border-[#e5e7eb]">
+                  <th className="text-left py-3 px-4 font-medium text-[#6b7280]">User</th>
+                  <th className="text-left py-3 px-4 font-medium text-[#6b7280]">Role</th>
+                  <th className="text-left py-3 px-4 font-medium text-[#6b7280]">Status</th>
+                  <th className="text-left py-3 px-4 font-medium text-[#6b7280]">Activity</th>
+                  <th className="text-left py-3 px-4 font-medium text-[#6b7280]">Stats</th>
+                  <th className="text-left py-3 px-4 font-medium text-[#6b7280]">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {filteredUsers.map((user) => (
-                  <tr key={user.id} className="border-b border-border hover:bg-muted/50">
+                  <tr key={user.id} className="border-b border-[#e5e7eb] hover:bg-[#f3f4f6]/50">
                     <td className="py-4 px-4">
                       <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                          <span className="font-medium text-primary">
+                        <div className="w-10 h-10 bg-[#10b981]/10 rounded-full flex items-center justify-center">
+                          <span className="font-medium text-[#10b981]">
                             {user.name.charAt(0).toUpperCase()}
                           </span>
                         </div>
                         <div>
                           <p className="font-medium">{user.name}</p>
-                          <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                          <div className="flex items-center space-x-2 text-sm text-[#6b7280]">
                             <Mail className="w-3 h-3" />
                             <span>{user.email}</span>
                           </div>
@@ -264,7 +269,7 @@ export function UserManagementScreen({ onBack }: UserManagementScreenProps) {
                     <td className="py-4 px-4">
                       <div className="text-sm">
                         <p>Joined: {user.joinedDate}</p>
-                        <p className="text-muted-foreground">Last: {user.lastActive}</p>
+                        <p className="text-[#6b7280]">Last: {user.lastActive}</p>
                       </div>
                     </td>
                     <td className="py-4 px-4">
@@ -272,15 +277,15 @@ export function UserManagementScreen({ onBack }: UserManagementScreenProps) {
                         {user.role === 'customer' ? (
                           <>
                             <p>{user.orders} orders</p>
-                            <p className="text-muted-foreground">KES {user.totalSpent?.toLocaleString()}</p>
+                            <p className="text-[#6b7280]">KES {user.totalSpent?.toLocaleString()}</p>
                           </>
                         ) : user.role === 'farmer' ? (
                           <>
                             <p>{user.products} products</p>
-                            <p className="text-muted-foreground">Active seller</p>
+                            <p className="text-[#6b7280]">Active seller</p>
                           </>
                         ) : (
-                          <p className="text-muted-foreground">Admin user</p>
+                          <p className="text-[#6b7280]">Admin user</p>
                         )}
                       </div>
                     </td>

@@ -62,7 +62,7 @@ export function ProductDetailsScreen({ product, onBack, onAddToCart }: ProductDe
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="bg-white border-b border-border sticky top-0 z-10">
+      <div className="bg-[#ffffff] shadow-sm sticky top-0 z-10">
         <div className="p-4 flex items-center justify-between">
           <button
             type="button"
@@ -86,7 +86,7 @@ export function ProductDetailsScreen({ product, onBack, onAddToCart }: ProductDe
 
       <div className="space-y-6">
         {/* Product Image */}
-        <div className="aspect-square bg-muted relative">
+        <div className="aspect-square bg-[#e5e7eb] relative rounded-2xl overflow-hidden shadow-md">
           <img
             src={product.images[0]}
             alt={product.name}
@@ -148,7 +148,7 @@ export function ProductDetailsScreen({ product, onBack, onAddToCart }: ProductDe
             )}
 
             {/* Seller Info */}
-            <div className="p-4 bg-white rounded-lg shadow">
+            <div className="p-4 bg-[#ffffff] rounded-2xl shadow-md">
               <div className="flex items-center space-x-3">
                 <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
                   <span className="text-white font-medium">
@@ -222,7 +222,7 @@ export function ProductDetailsScreen({ product, onBack, onAddToCart }: ProductDe
                     type="button"
                     onClick={() => handleQuantityChange(-1)}
                     disabled={quantity <= 1}
-                    className="w-8 h-8 p-0 rounded border flex items-center justify-center hover:bg-muted transition"
+                    className="w-8 h-8 p-0 rounded-md border-2 border-[#10b981] text-[#10b981] font-semibold hover:bg-[#10b981] hover:text-[#ffffff] transition-all disabled:opacity-50 flex items-center justify-center"
                   >
                     <Minus className="w-4 h-4" />
                   </button>
@@ -233,7 +233,7 @@ export function ProductDetailsScreen({ product, onBack, onAddToCart }: ProductDe
                     type="button"
                     onClick={() => handleQuantityChange(1)}
                     disabled={quantity >= product.stockQuantity}
-                    className="w-8 h-8 p-0 rounded border flex items-center justify-center hover:bg-muted transition"
+                    className="w-8 h-8 p-0 rounded-md border-2 border-[#10b981] text-[#10b981] font-semibold hover:bg-[#10b981] hover:text-[#ffffff] transition-all disabled:opacity-50 flex items-center justify-center"
                   >
                     <Plus className="w-4 h-4" />
                   </button>
@@ -252,7 +252,7 @@ export function ProductDetailsScreen({ product, onBack, onAddToCart }: ProductDe
               <button
                 type="button"
                 onClick={handleAddToCart}
-                className="w-full h-12 text-base font-medium bg-primary hover:bg-primary/90 text-white rounded flex items-center justify-center"
+                className="w-full h-12 text-base font-bold bg-[#10b981] hover:bg-[#059669] text-[#ffffff] rounded-md flex items-center justify-center shadow-md hover:shadow-lg transition-all active:scale-95"
               >
                 <ShoppingCart className="w-5 h-5 mr-2" />
                 Add to Cart

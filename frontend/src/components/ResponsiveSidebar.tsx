@@ -90,17 +90,19 @@ export function ResponsiveSidebar({
       <button
         key={item.id}
         type="button"
-        className={`w-full h-12 text-left transition-all duration-200 flex items-center ${
-          sidebarCollapsed ? "justify-center px-0" : "justify-start"
-        } ${activeSection === item.id ? "bg-primary text-white" : "bg-transparent hover:bg-muted text-foreground"}`}
+        className={`w-full px-3 py-2 text-left transition-all duration-200 flex items-center gap-3 rounded-lg text-sm ${
+          activeSection === item.id 
+            ? "bg-[#10b981] text-[#ffffff] shadow-sm" 
+            : "bg-transparent text-[#1f2937] hover:bg-[#f3f4f6]"
+        }`}
         onClick={() => onNavigate(item.id)}
       >
-        <item.icon className={`w-5 h-5 ${sidebarCollapsed ? '' : 'mr-3'}`} />
+        <item.icon className="w-5 h-5 flex-shrink-0" />
         {!sidebarCollapsed && (
           <>
-            <span className="flex-1">{item.label}</span>
+            <span className="flex-1 truncate font-medium">{item.label}</span>
             {item.badge && item.badge > 0 && (
-              <span className="ml-auto bg-primary text-white text-xs px-2 py-1 rounded font-semibold">
+              <span className="bg-[#ef4444] text-[#ffffff] text-xs px-2 py-0.5 rounded-full font-bold flex-shrink-0">
                 {item.badge}
               </span>
             )}
@@ -114,20 +116,22 @@ export function ResponsiveSidebar({
         <div key={item.id} className="relative group">
           <button
             type="button"
-            className={`w-full h-12 flex items-center justify-center transition-all duration-200 ${
-              activeSection === item.id ? "bg-primary text-white" : "bg-transparent hover:bg-muted text-foreground"
+            className={`w-full h-10 flex items-center justify-center transition-all duration-200 rounded-lg ${
+              activeSection === item.id 
+                ? "bg-[#10b981] text-[#ffffff] shadow-sm" 
+                : "bg-transparent text-[#1f2937] hover:bg-[#f3f4f6]"
             }`}
             onClick={() => onNavigate(item.id)}
           >
             <item.icon className="w-5 h-5" />
             {item.badge && item.badge > 0 && (
-              <span className="absolute top-2 right-2 bg-primary text-white text-xs px-2 py-1 rounded font-semibold">
+              <span className="absolute top-1 right-1 bg-[#ef4444] text-[#ffffff] text-xs px-1.5 py-0.5 rounded-full font-bold min-w-5 text-center">
                 {item.badge}
               </span>
             )}
           </button>
-          <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 hidden group-hover:block bg-card border border-border rounded px-2 py-1 text-xs shadow">
-            <p>{item.label}</p>
+          <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 hidden group-hover:block bg-[#ffffff] rounded-lg px-3 py-2 text-xs shadow-md z-50 whitespace-nowrap">
+            <p className="font-medium text-[#1f2937]">{item.label}</p>
           </div>
         </div>
       );
@@ -140,14 +144,14 @@ export function ResponsiveSidebar({
     <div className="flex flex-col h-full">
       {/* Logo and Brand */}
       {!sidebarCollapsed && (
-        <div className="p-6 border-b border-border">
+        <div className="px-4 py-5 bg-[#ffffff]">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center">
-              <Leaf className="w-6 h-6 text-white" />
+            <div className="w-10 h-10 bg-[#10b981] rounded-xl flex items-center justify-center flex-shrink-0">
+              <Leaf className="w-6 h-6 text-[#ffffff]" />
             </div>
-            <div>
-              <h1 className="font-semibold text-lg text-foreground">Kilimobiz</h1>
-              <p className="text-sm text-muted-foreground capitalize">{userRole} Portal</p>
+            <div className="min-w-0">
+              <h1 className="font-bold text-base text-[#1f2937]">Kilimobiz</h1>
+              <p className="text-xs text-[#6b7280] capitalize">{userRole} Portal</p>
             </div>
           </div>
         </div>
@@ -155,25 +159,25 @@ export function ResponsiveSidebar({
 
       {/* Collapsed Logo */}
       {sidebarCollapsed && (
-        <div className="p-4 border-b border-border flex justify-center">
-          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-            <Leaf className="w-5 h-5 text-white" />
+        <div className="px-4 py-5 flex justify-center bg-[#ffffff]">
+          <div className="w-8 h-8 bg-[#10b981] rounded-lg flex items-center justify-center flex-shrink-0">
+            <Leaf className="w-5 h-5 text-[#ffffff]" />
           </div>
         </div>
       )}
 
       {/* User Info */}
       {!sidebarCollapsed && (
-        <div className="p-4 border-b border-border">
+        <div className="px-4 py-4 bg-[#ffffff] border-b border-[#e5e7eb]">
           <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-              <span className="font-medium text-primary">
+            <div className="w-10 h-10 bg-[#f0fdf4] rounded-full flex items-center justify-center flex-shrink-0">
+              <span className="font-bold text-[#10b981] text-sm">
                 {userName.charAt(0).toUpperCase()}
               </span>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="font-medium text-foreground truncate">{userName}</p>
-              <p className="text-sm text-muted-foreground capitalize">{userRole}</p>
+              <p className="font-medium text-[#1f2937] truncate text-sm">{userName}</p>
+              <p className="text-xs text-[#6b7280] capitalize">{userRole}</p>
             </div>
             <NotificationCenter 
               userId={userId}
@@ -185,16 +189,16 @@ export function ResponsiveSidebar({
 
       {/* Collapsed User Avatar */}
       {sidebarCollapsed && (
-        <div className="p-4 border-b border-border flex flex-col items-center space-y-2">
+        <div className="px-4 py-4 flex flex-col items-center space-y-2 bg-[#ffffff] border-b border-[#e5e7eb]">
           <div className="relative group">
-            <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
-              <span className="font-medium text-primary text-sm">
+            <div className="w-8 h-8 bg-[#f0fdf4] rounded-full flex items-center justify-center flex-shrink-0">
+              <span className="font-bold text-[#10b981] text-xs">
                 {userName.charAt(0).toUpperCase()}
               </span>
             </div>
-            <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 hidden group-hover:block bg-card border border-border rounded px-2 py-1 text-xs shadow z-50">
-              <p>{userName}</p>
-              <p className="text-xs text-muted-foreground capitalize">{userRole}</p>
+            <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 hidden group-hover:block bg-[#ffffff] rounded-lg px-2 py-1 text-xs shadow-lg z-50">
+              <p className="font-medium text-[#1f2937]">{userName}</p>
+              <p className="text-xs text-[#6b7280] capitalize">{userRole}</p>
             </div>
           </div>
           <NotificationCenter 
@@ -205,49 +209,49 @@ export function ResponsiveSidebar({
       )}
 
       {/* Navigation */}
-      <nav className="flex-1 p-4">
+      <nav className="flex-1 px-3 py-4 overflow-y-auto">
         <div className="space-y-1">
           {navItems.map((item) => renderNavButton(item))}
         </div>
 
         {!sidebarCollapsed && (
           <>
-            <hr className="my-6 border-border" />
+            <div className="my-4 border-t border-[#e5e7eb]"></div>
 
             {/* Quick Stats for Farmers/Admins */}
             {(userRole === 'farmer' || userRole === 'admin') && (
-              <div className="space-y-4 mb-6">
-                <h4 className="font-medium text-sm text-muted-foreground">Quick Stats</h4>
-                <div className="space-y-3">
+              <div className="space-y-3 mb-6 px-1">
+                <h4 className="font-semibold text-xs text-[#6b7280] uppercase tracking-wide">Quick Stats</h4>
+                <div className="space-y-2 text-sm">
                   {userRole === 'farmer' && (
                     <>
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="text-muted-foreground">Active Products</span>
-                        <span className="font-medium">12</span>
+                      <div className="flex items-center justify-between">
+                        <span className="text-[#6b7280]">Active Products</span>
+                        <span className="font-bold text-[#1f2937]">12</span>
                       </div>
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="text-muted-foreground">This Month</span>
-                        <span className="font-medium text-primary">KES 45K</span>
+                      <div className="flex items-center justify-between">
+                        <span className="text-[#6b7280]">This Month</span>
+                        <span className="font-bold text-[#10b981]">KES 45K</span>
                       </div>
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="text-muted-foreground">Pending Orders</span>
-                        <span className="font-medium text-yellow-600">{pendingOrdersCount}</span>
+                      <div className="flex items-center justify-between">
+                        <span className="text-[#6b7280]">Pending Orders</span>
+                        <span className="font-bold text-[#f59e0b]">{pendingOrdersCount}</span>
                       </div>
                     </>
                   )}
                   {userRole === 'admin' && (
                     <>
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="text-muted-foreground">Total Users</span>
-                        <span className="font-medium">1,234</span>
+                      <div className="flex items-center justify-between">
+                        <span className="text-[#6b7280]">Total Users</span>
+                        <span className="font-bold text-[#1f2937]">1,234</span>
                       </div>
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="text-muted-foreground">Active Farmers</span>
-                        <span className="font-medium text-green-600">89</span>
+                      <div className="flex items-center justify-between">
+                        <span className="text-[#6b7280]">Active Farmers</span>
+                        <span className="font-bold text-[#10b981]">89</span>
                       </div>
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="text-muted-foreground">Pending Reviews</span>
-                        <span className="font-medium text-yellow-600">15</span>
+                      <div className="flex items-center justify-between">
+                        <span className="text-[#6b7280]">Pending Reviews</span>
+                        <span className="font-bold text-[#f59e0b]">15</span>
                       </div>
                     </>
                   )}
@@ -255,27 +259,29 @@ export function ResponsiveSidebar({
               </div>
             )}
 
+            <div className="my-4 border-t border-[#e5e7eb]"></div>
+
             {/* Role Switch - Show when user can switch views */}
             {((actualUserRole === 'admin' || actualUserRole === 'farmer') || (userRole === 'admin' || userRole === 'farmer')) && (
-              <div className="space-y-2 mb-6">
-                <h4 className="font-medium text-sm text-muted-foreground">Switch View</h4>
+              <div className="space-y-2 mb-6 px-1">
+                <h4 className="font-semibold text-xs text-[#6b7280] uppercase tracking-wide">Switch View</h4>
                 
                 {/* If currently in customer view but user is admin/farmer, show switch back */}
                 {(actualUserRole === 'admin' || actualUserRole === 'farmer') && viewMode === 'customer' && (
                   <button
                     type="button"
-                    className="w-full justify-start h-10 border border-border rounded bg-transparent text-foreground hover:bg-muted transition flex items-center text-sm"
+                    className="w-full justify-start px-3 py-2 rounded-lg bg-[#f3f4f6] text-[#1f2937] hover:bg-[#e5e7eb] transition flex items-center gap-3 text-sm font-medium shadow-sm"
                     onClick={() => onNavigate(actualUserRole === 'admin' ? 'admin-view' : 'farmer-view')}
                   >
                     {actualUserRole === 'admin' ? (
                       <>
-                        <Shield className="w-4 h-4 mr-2" />
-                        Back to Admin Panel
+                        <Shield className="w-4 h-4 flex-shrink-0" />
+                        Admin Panel
                       </>
                     ) : (
                       <>
-                        <Store className="w-4 h-4 mr-2" />
-                        Back to Seller Dashboard
+                        <Store className="w-4 h-4 flex-shrink-0" />
+                        Seller Dashboard
                       </>
                     )}
                   </button>
@@ -285,10 +291,10 @@ export function ResponsiveSidebar({
                 {(userRole === 'admin' || userRole === 'farmer') && viewMode !== 'customer' && (
                   <button
                     type="button"
-                    className="w-full justify-start h-10 border border-border rounded bg-transparent text-foreground hover:bg-muted transition flex items-center text-sm"
+                    className="w-full justify-start px-3 py-2 rounded-lg bg-[#f3f4f6] text-[#1f2937] hover:bg-[#e5e7eb] transition flex items-center gap-3 text-sm font-medium shadow-sm"
                     onClick={() => onNavigate('customer-view')}
                   >
-                    <Home className="w-4 h-4 mr-2" />
+                    <Home className="w-4 h-4 flex-shrink-0" />
                     Shop as Customer
                   </button>
                 )}
@@ -297,10 +303,10 @@ export function ResponsiveSidebar({
                 {(actualUserRole === 'admin' || userRole === 'admin') && viewMode !== 'farmer' && (
                   <button
                     type="button"
-                    className="w-full justify-start h-10 border border-border rounded bg-transparent text-foreground hover:bg-muted transition flex items-center text-sm"
+                    className="w-full justify-start px-3 py-2 rounded-lg bg-[#f3f4f6] text-[#1f2937] hover:bg-[#e5e7eb] transition flex items-center gap-3 text-sm font-medium shadow-sm"
                     onClick={() => onNavigate('farmer-view')}
                   >
-                    <Package className="w-4 h-4 mr-2" />
+                    <Package className="w-4 h-4 flex-shrink-0" />
                     View as Farmer
                   </button>
                 )}
@@ -311,34 +317,34 @@ export function ResponsiveSidebar({
       </nav>
 
       {/* Bottom Actions */}
-      <div className="p-4 border-t border-border">
-        <div className="space-y-2">
+      <div className="px-3 py-4 bg-[#ffffff] border-t border-[#e5e7eb]">
+        <div className="space-y-1">
           {sidebarCollapsed ? (
-            <div className="flex flex-col space-y-2">
+            <div className="flex flex-col space-y-1">
               {/* Settings Button with tooltip */}
               <div className="relative group">
                 <button
                   type="button"
-                  className="w-full justify-center h-10 px-0 rounded bg-transparent text-foreground hover:bg-muted transition flex items-center"
+                  className="w-full justify-center h-10 px-0 rounded-lg bg-transparent text-[#1f2937] hover:bg-[#f3f4f6] transition flex items-center"
                   onClick={() => onNavigate('settings')}
                 >
-                  <Settings className="w-4 h-4" />
+                  <Settings className="w-5 h-5" />
                 </button>
-                <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 hidden group-hover:block bg-card border border-border rounded px-2 py-1 text-xs shadow z-50">
-                  <p>Settings</p>
+                <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 hidden group-hover:block bg-[#ffffff] rounded-lg px-3 py-2 text-xs shadow-md z-50 whitespace-nowrap">
+                  <p className="font-medium text-[#1f2937]">Settings</p>
                 </div>
               </div>
               {/* Logout Button with tooltip */}
               <div className="relative group">
                 <button
                   type="button"
-                  className="w-full justify-center h-10 px-0 rounded bg-transparent text-red-600 hover:text-red-700 hover:bg-red-50 transition flex items-center"
+                  className="w-full justify-center h-10 px-0 rounded-lg bg-transparent text-[#6b7280] hover:text-[#ef4444] hover:bg-[#fef2f2] transition flex items-center"
                   onClick={onLogout}
                 >
-                  <LogOut className="w-4 h-4" />
+                  <LogOut className="w-5 h-5" />
                 </button>
-                <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 hidden group-hover:block bg-card border border-border rounded px-2 py-1 text-xs shadow z-50">
-                  <p>Logout</p>
+                <div className="absolute left-full top-1/2 -translate-y-1/2 ml-3 hidden group-hover:block bg-[#ffffff] rounded-lg px-3 py-2 text-xs shadow-md z-50 whitespace-nowrap">
+                  <p className="font-medium text-[#ef4444]">Logout</p>
                 </div>
               </div>
             </div>
@@ -346,18 +352,18 @@ export function ResponsiveSidebar({
             <>
               <button
                 type="button"
-                className="w-full justify-start h-10 rounded bg-transparent text-foreground hover:bg-muted transition flex items-center"
+                className="w-full justify-start px-3 py-2 rounded-lg bg-transparent text-[#1f2937] hover:bg-[#f3f4f6] transition flex items-center gap-3 text-sm font-medium"
                 onClick={() => onNavigate('settings')}
               >
-                <Settings className="w-4 h-4 mr-3" />
+                <Settings className="w-5 h-5 flex-shrink-0" />
                 Settings
               </button>
               <button
                 type="button"
-                className="w-full justify-start h-10 rounded bg-transparent text-red-600 hover:text-red-700 hover:bg-red-50 transition flex items-center"
+                className="w-full justify-start px-3 py-2 rounded-lg bg-transparent text-[#ef4444] hover:bg-[#fef2f2] transition flex items-center gap-3 text-sm font-medium"
                 onClick={onLogout}
               >
-                <LogOut className="w-4 h-4 mr-3" />
+                <LogOut className="w-5 h-5 flex-shrink-0" />
                 Logout
               </button>
             </>

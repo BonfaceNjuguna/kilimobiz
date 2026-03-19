@@ -113,6 +113,21 @@ export function ResponsiveAdminDashboard({
     }
   };
 
+  // Define sidebar before using it in conditional returns
+  const sidebar = (
+    <ResponsiveSidebar
+      userRole={viewMode}
+      userName={user?.name || 'Admin'}
+      activeSection={currentScreen}
+      onNavigate={handleSidebarNavigation}
+      onLogout={onLogout}
+      pendingOrdersCount={3}
+      actualUserRole={user?.role}
+      viewMode={viewMode}
+      userId={user?.id}
+    />
+  );
+
   // If mobile, use the original AdminDashboard with normalized user
   if (screenSize === "mobile") {
     return (
@@ -129,53 +144,55 @@ export function ResponsiveAdminDashboard({
   // Render specific screens
   if (currentScreen === "product-review") {
     return (
-      <ProductReviewScreen onBack={() => setCurrentScreen("dashboard")} />
+      <ResponsiveLayout sidebar={sidebar} showSidebar={true} className="space-y-8">
+        <ProductReviewScreen onBack={() => setCurrentScreen("dashboard")} />
+      </ResponsiveLayout>
     );
   }
 
   if (currentScreen === "category-management") {
     return (
-      <CategoryManagementScreen onBack={() => setCurrentScreen("dashboard")} />
+      <ResponsiveLayout sidebar={sidebar} showSidebar={true} className="space-y-8">
+        <CategoryManagementScreen onBack={() => setCurrentScreen("dashboard")} />
+      </ResponsiveLayout>
     );
   }
 
   if (currentScreen === "farmer-approval") {
     return (
-      <FarmerApprovalScreen onBack={() => setCurrentScreen("dashboard")} />
+      <ResponsiveLayout sidebar={sidebar} showSidebar={true} className="space-y-8">
+        <FarmerApprovalScreen onBack={() => setCurrentScreen("dashboard")} />
+      </ResponsiveLayout>
     );
   }
 
   if (currentScreen === "settings") {
     return (
-      <AdminSettings
-        user={normalizedUser}
-        onBack={() => setCurrentScreen("dashboard")}
-        onLogout={onLogout}
-      />
+      <ResponsiveLayout sidebar={sidebar} showSidebar={true} className="space-y-8">
+        <AdminSettings
+          user={normalizedUser}
+          onBack={() => setCurrentScreen("dashboard")}
+          onLogout={onLogout}
+        />
+      </ResponsiveLayout>
     );
   }
 
   if (currentScreen === "users") {
-    return <UserManagementScreen onBack={() => setCurrentScreen("dashboard")} />;
+    return (
+      <ResponsiveLayout sidebar={sidebar} showSidebar={true} className="space-y-8">
+        <UserManagementScreen onBack={() => setCurrentScreen("dashboard")} />
+      </ResponsiveLayout>
+    );
   }
 
   if (currentScreen === "reports") {
-    return <ReportsScreen onBack={() => setCurrentScreen("dashboard")} />;
+    return (
+      <ResponsiveLayout sidebar={sidebar} showSidebar={true} className="space-y-8">
+        <ReportsScreen onBack={() => setCurrentScreen("dashboard")} />
+      </ResponsiveLayout>
+    );
   }
-
-  const sidebar = (
-    <ResponsiveSidebar
-      userRole={viewMode}
-      userName={user?.name || 'Admin'}
-      activeSection={currentScreen}
-      onNavigate={handleSidebarNavigation}
-      onLogout={onLogout}
-      pendingOrdersCount={3}
-      actualUserRole={user?.role}
-      viewMode={viewMode}
-      userId={user?.id}
-    />
-  );
 
   return (
     <ResponsiveLayout sidebar={sidebar} showSidebar={true} className="space-y-8">
@@ -240,10 +257,10 @@ export function ResponsiveAdminDashboard({
 
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-semibold text-foreground mb-2">
+        <h1 className="text-3xl font-semibold text-[#1f2937] mb-2">
           Admin Dashboard
         </h1>
-        <p className="text-muted-foreground">Monitor and manage your marketplace</p>
+        <p className="text-[#6b7280]">Monitor and manage your marketplace</p>
       </div>
 
       {/* Stats Overview */}
@@ -251,8 +268,8 @@ export function ResponsiveAdminDashboard({
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-muted-foreground">Total Revenue</p>
-              <p className="text-3xl font-semibold text-foreground">KES 2.4M</p>
+              <p className="text-sm text-[#6b7280]">Total Revenue</p>
+              <p className="text-3xl font-semibold text-[#1f2937]">KES 2.4M</p>
               <p className="text-sm text-green-600 mt-1">+12% from last month</p>
             </div>
             <DollarSign className="w-12 h-12" />
@@ -262,8 +279,8 @@ export function ResponsiveAdminDashboard({
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-muted-foreground">Active Users</p>
-              <p className="text-3xl font-semibold text-foreground">1,234</p>
+              <p className="text-sm text-[#6b7280]">Active Users</p>
+              <p className="text-3xl font-semibold text-[#1f2937]">1,234</p>
               <p className="text-sm text-green-600 mt-1">+8% from last month</p>
             </div>
             <Users className="w-12 h-12" />
@@ -273,8 +290,8 @@ export function ResponsiveAdminDashboard({
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-muted-foreground">Total Products</p>
-              <p className="text-3xl font-semibold text-foreground">456</p>
+              <p className="text-sm text-[#6b7280]">Total Products</p>
+              <p className="text-3xl font-semibold text-[#1f2937]">456</p>
               <p className="text-sm text-green-600 mt-1">+15 new this week</p>
             </div>
             <Package className="w-12 h-12" />
@@ -284,8 +301,8 @@ export function ResponsiveAdminDashboard({
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-muted-foreground">Orders Today</p>
-              <p className="text-3xl font-semibold text-foreground">89</p>
+              <p className="text-sm text-[#6b7280]">Orders Today</p>
+              <p className="text-3xl font-semibold text-[#1f2937]">89</p>
               <p className="text-sm text-green-600 mt-1">+23% vs yesterday</p>
             </div>
             <TrendingUp className="w-12 h-12" />
@@ -304,14 +321,14 @@ export function ResponsiveAdminDashboard({
               </div>
               <div className="flex-1">
                 <h3 className="font-semibold">Review Products</h3>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-[#6b7280]">
                   15 pending approval
                 </p>
               </div>
               <button
                 type="button"
                 onClick={() => setCurrentScreen("product-review")}
-                className="px-3 py-2 rounded bg-primary text-white hover:bg-primary/90 text-sm font-medium"
+                className="px-3 py-2 rounded bg-[#10b981] text-white hover:bg-[#059669] text-sm font-medium"
               >
                 Review
               </button>
@@ -325,14 +342,14 @@ export function ResponsiveAdminDashboard({
               </div>
               <div className="flex-1">
                 <h3 className="font-semibold">Approve Farmers</h3>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-[#6b7280]">
                   5 applications waiting
                 </p>
               </div>
               <button
                 type="button"
                 onClick={() => setCurrentScreen("farmer-approval")}
-                className="px-3 py-2 rounded bg-primary text-white hover:bg-primary/90 text-sm font-medium"
+                className="px-3 py-2 rounded bg-[#10b981] text-white hover:bg-[#059669] text-sm font-medium"
               >
                 Review
               </button>
@@ -346,12 +363,12 @@ export function ResponsiveAdminDashboard({
               </div>
               <div className="flex-1">
                 <h3 className="font-semibold">Manage Categories</h3>
-                <p className="text-sm text-muted-foreground">12 active categories</p>
+                <p className="text-sm text-[#6b7280]">12 active categories</p>
               </div>
               <button
                 type="button"
                 onClick={() => setCurrentScreen("category-management")}
-                className="px-3 py-2 rounded border border-primary text-primary hover:bg-primary/10 text-sm font-medium"
+                className="px-3 py-2 rounded border border-[#10b981] text-[#10b981] hover:bg-[#f0fdf4] text-sm font-medium"
               >
                 Manage
               </button>
@@ -369,17 +386,17 @@ export function ResponsiveAdminDashboard({
               {[1, 2, 3, 4, 5].map((order) => (
                 <div
                   key={order}
-                  className="flex items-center justify-between p-3 bg-muted rounded-lg"
+                  className="flex items-center justify-between p-3 bg-[#f3f4f6] rounded-lg"
                 >
                   <div className="flex items-center space-x-3">
-                    <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
-                      <span className="text-xs font-medium text-primary">
+                    <div className="w-8 h-8 bg-[#d1fae5] rounded-full flex items-center justify-center">
+                      <span className="text-xs font-medium text-[#10b981]">
                         #{order}
                       </span>
                     </div>
                     <div>
                       <p className="font-medium text-sm">Customer {order}</p>
-                      <p className="text-xs text-muted-foreground">
+                      <p className="text-xs text-[#6b7280]">
                         2 minutes ago
                       </p>
                     </div>

@@ -64,32 +64,32 @@ export function OTPScreen({ contact, contactType, onVerify, onBack, onResend }: 
     : contact.replace(/(.{2})(.*)(@.*)/, '$1***$3');
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-beige flex items-center justify-center p-4">
-      <div className="w-full max-w-md shadow-xl border-0 bg-white rounded-2xl">
+    <div className="min-h-screen bg-gradient-to-br from-[#d1fae5] to-[#fef3c7] flex items-center justify-center p-4">
+      <div className="w-full max-w-md shadow-xl bg-[#ffffff] rounded-3xl">
         <div className="p-8">
           {/* Header */}
           <div className="flex items-center mb-6">
             <button
               type="button"
               onClick={onBack}
-              className="mr-2 w-10 h-10 p-0 rounded-full hover:bg-muted transition flex items-center justify-center"
+              className="mr-2 w-10 h-10 p-0 rounded-full hover:bg-[#e5e7eb] transition flex items-center justify-center"
             >
               <ArrowLeft className="w-5 h-5" />
             </button>
-            <div className="mx-auto w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
-              <Leaf className="w-6 h-6 text-white" />
+            <div className="mx-auto w-12 h-12 bg-[#10b981] rounded-xl flex items-center justify-center">
+              <Leaf className="w-6 h-6 text-[#ffffff]" />
             </div>
           </div>
 
           {/* Title and Description */}
           <div className="text-center mb-8">
-            <h1 className="text-xl font-semibold text-foreground mb-2">
+            <h1 className="text-xl font-semibold text-[#1f2937] mb-2">
               Verify Your {contactType === 'phone' ? 'Phone' : 'Email'}
             </h1>
-            <p className="text-muted-foreground text-sm">
+            <p className="text-[#6b7280] text-sm">
               We've sent a 4-digit code to
             </p>
-            <p className="text-foreground font-medium">
+            <p className="text-[#1f2937] font-medium">
               {maskedContact}
             </p>
           </div>
@@ -106,7 +106,7 @@ export function OTPScreen({ contact, contactType, onVerify, onBack, onResend }: 
                   value={digit}
                   onChange={(e) => handleOtpChange(index, e.target.value)}
                   onKeyDown={(e) => handleKeyDown(index, e)}
-                  className="w-16 h-16 text-center font-bold border-2 border-muted-foreground/30 bg-white rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/20 shadow-sm transition-all duration-200 hover:border-primary/50"
+                  className="w-16 h-16 text-center font-bold border-0 bg-[#f3f4f6] rounded-2xl focus:bg-[#e0f2fe] focus:ring-2 focus:ring-[#10b981] shadow-sm transition-all duration-200 hover:shadow-md"
                   style={{ fontSize: '24px', fontWeight: '700' }}
                   maxLength={1}
                   autoComplete="one-time-code"
@@ -118,7 +118,7 @@ export function OTPScreen({ contact, contactType, onVerify, onBack, onResend }: 
           {/* Verify Button */}
           <button
             type="button"
-            className="w-full h-12 text-base font-medium bg-primary hover:bg-primary/90 text-white rounded-lg transition disabled:opacity-60"
+            className="w-full h-12 text-base font-bold bg-[#10b981] hover:bg-[#059669] text-[#ffffff] rounded-lg transition disabled:opacity-60 shadow-md hover:shadow-lg"
             onClick={handleVerify}
             disabled={!isCodeComplete || isLoading}
           >
@@ -127,37 +127,37 @@ export function OTPScreen({ contact, contactType, onVerify, onBack, onResend }: 
 
           {/* Resend Section */}
           <div className="text-center mt-6">
-            <p className="text-sm text-muted-foreground mb-2">
+            <p className="text-sm text-[#6b7280] mb-2">
               Didn't receive the code?
             </p>
             {canResend ? (
               <button
                 type="button"
                 onClick={handleResend}
-                className="text-primary hover:text-primary/80 text-sm font-medium"
+                className="text-[#10b981] hover:text-[#059669] text-sm font-medium"
               >
                 Resend Code
               </button>
             ) : (
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-[#6b7280]">
                 Resend in {countdown}s
               </p>
             )}
           </div>
 
           {/* Security Notice */}
-          <div className="mt-8 p-4 bg-green-light rounded-lg">
+          <div className="mt-8 p-4 bg-[#d1fae5] rounded-lg">
             <div className="flex items-start space-x-3">
-              <Shield className="w-5 h-5 text-green-dark mt-0.5 flex-shrink-0" />
-              <div className="text-sm text-green-dark">
+              <Shield className="w-5 h-5 text-[#047857] mt-0.5 flex-shrink-0" />
+              <div className="text-sm text-[#047857]">
                 <strong>Security Notice:</strong> Never share your OTP with anyone. Kilimobiz will never ask for your OTP over phone or email.
               </div>
             </div>
           </div>
 
           {/* Demo Notice */}
-          <div className="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
-            <div className="text-sm text-blue-800">
+          <div className="mt-4 p-4 bg-[#eff6ff] rounded-lg border border-[#bfdbfe]">
+            <div className="text-sm text-[#1e40af]">
               <strong>Demo Codes:</strong><br />
               • Customer: 1234<br />
               • Farmer: 5678<br />

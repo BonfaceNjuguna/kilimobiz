@@ -6,6 +6,7 @@ import {
   Shield,
   CheckCircle
 } from "lucide-react";
+import { useScreenSize } from "./ResponsiveLayout";
 import type { CartItem, Address } from "../types/marketplace";
 import { COUNTIES, PAYMENT_METHODS } from "../constants/marketplace";
 
@@ -16,6 +17,7 @@ interface CheckoutScreenProps {
 }
 
 export function CheckoutScreen({ cart, onBack, onPlaceOrder }: CheckoutScreenProps) {
+  const screenSize = useScreenSize();
   const [step, setStep] = useState<'address' | 'payment' | 'review'>('address');
   const [deliveryAddress, setDeliveryAddress] = useState<Address>({
     street: '',
@@ -48,23 +50,25 @@ export function CheckoutScreen({ cart, onBack, onPlaceOrder }: CheckoutScreenPro
   const canProceedPayment = paymentMethod === 'mpesa' ? phoneNumber.length >= 10 : true;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#f9fafb]">
       {/* Header */}
-      <div className="bg-white border-b border-border sticky top-0 z-10">
+      <div className="bg-[#ffffff] shadow-sm sticky top-0 z-10">
         <div className="p-4 flex items-center space-x-4">
-          <button
-            type="button"
-            onClick={step === 'address' ? onBack : () => {
-              if (step === 'payment') setStep('address');
-              if (step === 'review') setStep('payment');
-            }}
-            className="w-10 h-10 p-0 rounded hover:bg-gray-100 transition flex items-center justify-center"
-          >
-            <ArrowLeft className="w-5 h-5" />
-          </button>
+          {screenSize === 'mobile' && (
+            <button
+              type="button"
+              onClick={step === 'address' ? onBack : () => {
+                if (step === 'payment') setStep('address');
+                if (step === 'review') setStep('payment');
+              }}
+              className="w-10 h-10 p-0 rounded hover:bg-gray-100 transition flex items-center justify-center"
+            >
+              <ArrowLeft className="w-5 h-5" />
+            </button>
+          )}
           <div>
-            <h1 className="font-semibold text-foreground">Checkout</h1>
-            <p className="text-sm text-muted-foreground">
+            <h1 className="font-semibold text-[#1f2937]">Checkout</h1>
+            <p className="text-sm text-[#6b7280]">
               Step {step === 'address' ? '1' : step === 'payment' ? '2' : '3'} of 3
             </p>
           </div>
@@ -75,20 +79,20 @@ export function CheckoutScreen({ cart, onBack, onPlaceOrder }: CheckoutScreenPro
         {/* Progress Indicator */}
         <div className="flex items-center space-x-2">
           <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-            step === 'address' ? 'bg-primary text-white' : 'bg-green-600 text-white'
+            step === 'address' ? 'bg-[#10b981] text-white' : 'bg-[#10b981] text-white'
           }`}>
             {step === 'address' ? '1' : <CheckCircle className="w-4 h-4" />}
           </div>
-          <div className={`flex-1 h-1 ${step !== 'address' ? 'bg-green-600' : 'bg-muted'}`} />
+          <div className={`flex-1 h-1 ${step !== 'address' ? 'bg-green-600' : 'bg-[#f3f4f6]'}`} />
           <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-            step === 'payment' ? 'bg-primary text-white' : 
-            step === 'review' ? 'bg-green-600 text-white' : 'bg-muted text-muted-foreground'
+            step === 'payment' ? 'bg-[#10b981] text-white' : 
+            step === 'review' ? 'bg-green-600 text-white' : 'bg-[#f3f4f6] text-[#6b7280]'
           }`}>
             {step === 'review' ? <CheckCircle className="w-4 h-4" /> : '2'}
           </div>
-          <div className={`flex-1 h-1 ${step === 'review' ? 'bg-green-600' : 'bg-muted'}`} />
+          <div className={`flex-1 h-1 ${step === 'review' ? 'bg-green-600' : 'bg-[#f3f4f6]'}`} />
           <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-            step === 'review' ? 'bg-primary text-white' : 'bg-muted text-muted-foreground'
+            step === 'review' ? 'bg-[#10b981] text-white' : 'bg-[#f3f4f6] text-[#6b7280]'
           }`}>
             3
           </div>
@@ -103,7 +107,7 @@ export function CheckoutScreen({ cart, onBack, onPlaceOrder }: CheckoutScreenPro
             </div>
             <div className="p-6 space-y-4">
               <div className="space-y-2">
-                <label htmlFor="street" className="text-sm font-medium text-foreground">Street Address</label>
+                  <label htmlFor="street" className="text-sm font-medium text-[#1f2937]">Street Address</label>
                 <input
                   id="street"
                   placeholder="123 Main Street, Building/Apartment"
@@ -115,7 +119,7 @@ export function CheckoutScreen({ cart, onBack, onPlaceOrder }: CheckoutScreenPro
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="space-y-2">
-                  <label htmlFor="city" className="text-sm font-medium text-foreground">City</label>
+                  <label htmlFor="city" className="text-sm font-medium text-[#1f2937]">City</label>
                   <input
                     id="city"
                     placeholder="Nairobi"
@@ -125,7 +129,7 @@ export function CheckoutScreen({ cart, onBack, onPlaceOrder }: CheckoutScreenPro
                   />
                 </div>
                 <div className="space-y-2">
-                  <label htmlFor="postal" className="text-sm font-medium text-foreground">Postal Code</label>
+                  <label htmlFor="postal" className="text-sm font-medium text-[#1f2937]">Postal Code</label>
                   <input
                     id="postal"
                     placeholder="00100"
@@ -137,7 +141,7 @@ export function CheckoutScreen({ cart, onBack, onPlaceOrder }: CheckoutScreenPro
               </div>
 
               <div className="space-y-2">
-                <label htmlFor="county" className="text-sm font-medium text-foreground">County</label>
+                  <label htmlFor="county" className="text-sm font-medium text-[#1f2937]">County</label>
                 <select
                   id="county"
                   value={deliveryAddress.county}
@@ -157,7 +161,7 @@ export function CheckoutScreen({ cart, onBack, onPlaceOrder }: CheckoutScreenPro
                 type="button"
                 onClick={handleAddressSubmit}
                 disabled={!canProceedAddress}
-                className="w-full bg-primary hover:bg-primary/90 text-white rounded px-4 py-2 font-medium"
+                className="w-full bg-[#10b981] hover:bg-[#059669] text-white rounded px-4 py-2 font-medium"
               >
                 Continue to Payment
               </button>
@@ -211,7 +215,7 @@ export function CheckoutScreen({ cart, onBack, onPlaceOrder }: CheckoutScreenPro
                 type="button"
                 onClick={handlePaymentSubmit}
                 disabled={!canProceedPayment}
-                className="w-full bg-primary hover:bg-primary/90 text-white rounded px-4 py-2 font-medium"
+                className="w-full bg-[#10b981] hover:bg-[#059669] text-white rounded px-4 py-2 font-medium"
               >
                 Review Order
               </button>
@@ -254,7 +258,7 @@ export function CheckoutScreen({ cart, onBack, onPlaceOrder }: CheckoutScreenPro
                   </div>
                   <div className="flex justify-between font-semibold">
                     <span>Total</span>
-                    <span className="text-primary">KES {total}</span>
+                    <span className="text-[#10b981]">KES {total}</span>
                   </div>
                 </div>
               </div>
@@ -299,7 +303,7 @@ export function CheckoutScreen({ cart, onBack, onPlaceOrder }: CheckoutScreenPro
             <button
               type="button"
               onClick={handlePlaceOrder}
-              className="w-full h-12 text-base font-medium bg-primary hover:bg-primary/90 text-white rounded"
+              className="w-full h-12 text-base font-medium bg-[#10b981] hover:bg-[#059669] text-white rounded"
             >
               Place Order • KES {total}
             </button>

@@ -18,7 +18,8 @@ import { FarmerEarningsScreen } from "./components/FarmerEarningsScreen";
 import { AdminDashboard } from "./components/AdminDashboard";
 import { ResponsiveAdminDashboard } from "./components/ResponsiveAdminDashboard";
 import { useMarketplaceState } from "./hooks/useMarketplaceState";
-import { useScreenSize } from "./components/ResponsiveLayout";
+import { useScreenSize, ResponsiveLayout } from "./components/ResponsiveLayout";
+import { ResponsiveSidebar } from "./components/ResponsiveSidebar";
 import { Toaster } from 'sonner';
 
 export default function App() {
@@ -101,16 +102,35 @@ export default function App() {
               onAddToCart={addToCart}
             />
           ) : (
-            <ResponsiveProductDetails 
-              product={selectedProduct}
-              onBack={handleBackToHome}
-              onAddToCart={addToCart}
-            />
+            <ResponsiveLayout 
+              sidebar={
+                <ResponsiveSidebar
+                  userRole={viewMode}
+                  userName={user?.name || 'Guest'}
+                  activeSection="product-details"
+                  onNavigate={(section) => {
+                    handleNavigateToScreen(section as any);
+                  }}
+                  onLogout={() => handleNavigateToScreen('login')}
+                  cartItemCount={cartItemCount}
+                  actualUserRole={user?.role}
+                  viewMode={viewMode}
+                />
+              }
+              showSidebar={true}
+              className="space-y-8"
+            >
+              <ResponsiveProductDetails 
+                product={selectedProduct}
+                onBack={handleBackToHome}
+                onAddToCart={addToCart}
+              />
+            </ResponsiveLayout>
           )
         ) : null;
       
       case 'cart':
-        return (
+        return screenSize === 'mobile' ? (
           <CartScreen 
             cart={cart}
             onBack={handleBackToHome}
@@ -118,10 +138,37 @@ export default function App() {
             onRemoveItem={removeFromCart}
             onCheckout={() => handleNavigateToScreen('checkout')}
           />
+        ) : (
+          <ResponsiveLayout 
+            sidebar={
+              <ResponsiveSidebar
+                userRole={viewMode}
+                userName={user?.name || 'Guest'}
+                activeSection="cart"
+                onNavigate={(section) => {
+                  handleNavigateToScreen(section as any);
+                }}
+                onLogout={() => handleNavigateToScreen('login')}
+                cartItemCount={cartItemCount}
+                actualUserRole={user?.role}
+                viewMode={viewMode}
+              />
+            }
+            showSidebar={true}
+            className="space-y-8"
+          >
+            <CartScreen 
+              cart={cart}
+              onBack={handleBackToHome}
+              onUpdateQuantity={updateCartQuantity}
+              onRemoveItem={removeFromCart}
+              onCheckout={() => handleNavigateToScreen('checkout')}
+            />
+          </ResponsiveLayout>
         );
       
       case 'checkout':
-        return (
+        return screenSize === 'mobile' ? (
           <CheckoutScreen 
             cart={cart}
             onBack={() => handleNavigateToScreen('cart')}
@@ -130,6 +177,34 @@ export default function App() {
               handleNavigateToScreen('order-confirmation');
             }}
           />
+        ) : (
+          <ResponsiveLayout 
+            sidebar={
+              <ResponsiveSidebar
+                userRole={viewMode}
+                userName={user?.name || 'Guest'}
+                activeSection="checkout"
+                onNavigate={(section) => {
+                  handleNavigateToScreen(section as any);
+                }}
+                onLogout={() => handleNavigateToScreen('login')}
+                cartItemCount={cartItemCount}
+                actualUserRole={user?.role}
+                viewMode={viewMode}
+              />
+            }
+            showSidebar={true}
+            className="space-y-8"
+          >
+            <CheckoutScreen 
+              cart={cart}
+              onBack={() => handleNavigateToScreen('cart')}
+              onPlaceOrder={(address, paymentMethod) => {
+                const order = createOrder(address, paymentMethod);
+                handleNavigateToScreen('order-confirmation');
+              }}
+            />
+          </ResponsiveLayout>
         );
       
       case 'order-confirmation':
@@ -145,7 +220,7 @@ export default function App() {
         ) : null;
       
       case 'categories':
-        return (
+        return screenSize === 'mobile' ? (
           <CategoriesScreen 
             user={user}
             cartItemCount={cartItemCount}
@@ -153,10 +228,37 @@ export default function App() {
             onNavigateToScreen={handleNavigateToScreen}
             onAddToCart={addToCart}
           />
+        ) : (
+          <ResponsiveLayout 
+            sidebar={
+              <ResponsiveSidebar
+                userRole={viewMode}
+                userName={user?.name || 'Guest'}
+                activeSection="categories"
+                onNavigate={(section) => {
+                  handleNavigateToScreen(section as any);
+                }}
+                onLogout={() => handleNavigateToScreen('login')}
+                cartItemCount={cartItemCount}
+                actualUserRole={user?.role}
+                viewMode={viewMode}
+              />
+            }
+            showSidebar={true}
+            className="space-y-8"
+          >
+            <CategoriesScreen 
+              user={user}
+              cartItemCount={cartItemCount}
+              onBack={handleBackToHome}
+              onNavigateToScreen={handleNavigateToScreen}
+              onAddToCart={addToCart}
+            />
+          </ResponsiveLayout>
         );
       
       case 'profile':
-        return (
+        return screenSize === 'mobile' ? (
           <ProfileScreen 
             user={user}
             orders={orders}
@@ -164,24 +266,103 @@ export default function App() {
             onNavigateToScreen={handleNavigateToScreen}
             onLogout={logout}
           />
+        ) : (
+          <ResponsiveLayout 
+            sidebar={
+              <ResponsiveSidebar
+                userRole={viewMode}
+                userName={user?.name || 'Guest'}
+                activeSection="profile"
+                onNavigate={(section) => {
+                  handleNavigateToScreen(section as any);
+                }}
+                onLogout={() => handleNavigateToScreen('login')}
+                cartItemCount={cartItemCount}
+                actualUserRole={user?.role}
+                viewMode={viewMode}
+              />
+            }
+            showSidebar={true}
+            className="space-y-8"
+          >
+            <ProfileScreen 
+              user={user}
+              orders={orders}
+              onBack={handleBackToHome}
+              onNavigateToScreen={handleNavigateToScreen}
+              onLogout={logout}
+            />
+          </ResponsiveLayout>
         );
       
       case 'orders':
-        return (
+        return screenSize === 'mobile' ? (
           <OrdersScreen 
             user={user}
             orders={orders}
             onBack={handleBackToHome}
             onNavigateToScreen={handleNavigateToScreen}
           />
+        ) : (
+          <ResponsiveLayout 
+            sidebar={
+              <ResponsiveSidebar
+                userRole={viewMode}
+                userName={user?.name || 'Guest'}
+                activeSection="orders"
+                onNavigate={(section) => {
+                  handleNavigateToScreen(section as any);
+                }}
+                onLogout={() => handleNavigateToScreen('login')}
+                cartItemCount={cartItemCount}
+                actualUserRole={user?.role}
+                viewMode={viewMode}
+              />
+            }
+            showSidebar={true}
+            className="space-y-8"
+          >
+            <OrdersScreen 
+              user={user}
+              orders={orders}
+              onBack={handleBackToHome}
+              onNavigateToScreen={handleNavigateToScreen}
+            />
+          </ResponsiveLayout>
         );
       
       case 'order-tracking':
         return selectedOrderId ? (
-          <OrderTrackingScreen
-            orderId={selectedOrderId}
-            onBack={() => handleNavigateToScreen('orders')}
-          />
+          screenSize === 'mobile' ? (
+            <OrderTrackingScreen
+              orderId={selectedOrderId}
+              onBack={() => handleNavigateToScreen('orders')}
+            />
+          ) : (
+            <ResponsiveLayout 
+              sidebar={
+                <ResponsiveSidebar
+                  userRole={viewMode}
+                  userName={user?.name || 'Guest'}
+                  activeSection="order-tracking"
+                  onNavigate={(section) => {
+                    handleNavigateToScreen(section as any);
+                  }}
+                  onLogout={() => handleNavigateToScreen('login')}
+                  cartItemCount={cartItemCount}
+                  actualUserRole={user?.role}
+                  viewMode={viewMode}
+                />
+              }
+              showSidebar={true}
+              className="space-y-8"
+            >
+              <OrderTrackingScreen
+                orderId={selectedOrderId}
+                onBack={() => handleNavigateToScreen('orders')}
+              />
+            </ResponsiveLayout>
+          )
         ) : null;
       
       case 'farmer-dashboard':
@@ -334,7 +515,7 @@ export default function App() {
     <div className="min-h-screen bg-background">
       {renderScreen()}
       <Toaster 
-        position="top-center"
+        position="bottom-right"
         toastOptions={{
           style: {
             background: 'var(--card)',

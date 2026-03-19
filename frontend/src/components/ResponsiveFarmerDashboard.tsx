@@ -112,16 +112,32 @@ export function ResponsiveFarmerDashboard({
   );
 
   if (currentScreen === 'analytics') {
-    return <FarmerAnalyticsScreen farmerId={Number(farmerId)} farmerName={farmerName} onBack={() => setCurrentScreen('overview')} />;
+    return (
+      <ResponsiveLayout sidebar={sidebar} showSidebar={true} className="space-y-8">
+        <FarmerAnalyticsScreen farmerId={Number(farmerId)} farmerName={farmerName} onBack={() => setCurrentScreen('overview')} />
+      </ResponsiveLayout>
+    );
   }
   if (currentScreen === 'products') {
-    return <FarmerProductsScreen farmerId={Number(farmerId)} farmerName={farmerName} onBack={() => setCurrentScreen('overview')} />;
+    return (
+      <ResponsiveLayout sidebar={sidebar} showSidebar={true} className="space-y-8">
+        <FarmerProductsScreen farmerId={Number(farmerId)} farmerName={farmerName} onBack={() => setCurrentScreen('overview')} />
+      </ResponsiveLayout>
+    );
   }
   if (currentScreen === 'earnings') {
-    return <FarmerEarningsScreen farmerId={Number(farmerId)} farmerName={farmerName} onBack={() => setCurrentScreen('overview')} />;
+    return (
+      <ResponsiveLayout sidebar={sidebar} showSidebar={true} className="space-y-8">
+        <FarmerEarningsScreen farmerId={Number(farmerId)} farmerName={farmerName} onBack={() => setCurrentScreen('overview')} />
+      </ResponsiveLayout>
+    );
   }
   if (currentScreen === 'settings') {
-    return <FarmerSettings user={user} onBack={() => setCurrentScreen('overview')} onLogout={onLogout} />;
+    return (
+      <ResponsiveLayout sidebar={sidebar} showSidebar={true} className="space-y-8">
+        <FarmerSettings user={user} onBack={() => setCurrentScreen('overview')} onLogout={onLogout} />
+      </ResponsiveLayout>
+    );
   }
 
   // Orders screen (replace Card/Button/Badge with Tailwind)
