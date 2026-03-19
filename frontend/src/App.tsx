@@ -31,9 +31,7 @@ export default function App() {
     orders,
     otpData,
     cartItemCount,
-    cartTotal,
     viewMode,
-    subScreen,
     selectedOrderId,
     handleSendOTP,
     handleOTPVerification,
@@ -173,7 +171,7 @@ export default function App() {
             cart={cart}
             onBack={() => handleNavigateToScreen('cart')}
             onPlaceOrder={(address, paymentMethod) => {
-              const order = createOrder(address, paymentMethod);
+              createOrder(address, paymentMethod);
               handleNavigateToScreen('order-confirmation');
             }}
           />
@@ -200,7 +198,7 @@ export default function App() {
               cart={cart}
               onBack={() => handleNavigateToScreen('cart')}
               onPlaceOrder={(address, paymentMethod) => {
-                const order = createOrder(address, paymentMethod);
+                createOrder(address, paymentMethod);
                 handleNavigateToScreen('order-confirmation');
               }}
             />

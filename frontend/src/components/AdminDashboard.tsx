@@ -31,7 +31,7 @@ interface AdminDashboardProps {
   onLogout: () => void;
 }
 
-export function AdminDashboard({ user, viewMode, onSwitchViewMode, onLogout, onBack }: AdminDashboardProps) {
+export function AdminDashboard({ user, viewMode, onSwitchViewMode, onLogout }: AdminDashboardProps) {
   const [activeTab, setActiveTab] = useState('overview');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedRole, setSelectedRole] = useState<string>('all');

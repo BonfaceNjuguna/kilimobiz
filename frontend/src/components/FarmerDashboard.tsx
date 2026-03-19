@@ -62,16 +62,7 @@ export function FarmerDashboard({ farmerId, farmerName, user, viewMode, onSwitch
     { id: '3', customer: 'Peter Wilson', product: 'Free Range Chicken', amount: 1600, status: 'delivered' },
   ];
 
-  // Handle tab changes and navigation
-  const handleTabChange = (tab: string) => {
-    if (tab === 'analytics') {
-      onNavigateToScreen?.('farmer-analytics');
-    } else if (tab === 'earnings') {
-      onNavigateToScreen?.('farmer-earnings');
-    } else {
-      setActiveTab(tab);
-    }
-  };
+  // Handle screen navigation
 
   // Handle settings screen
   if (currentScreen === 'settings') {

@@ -1,5 +1,4 @@
 import { useState, useEffect, createContext, useContext } from 'react';
-import { Menu, X } from 'lucide-react';
 
 // Simple cn utility for className concatenation
 function cn(...classes: (string | undefined | false)[]) {
@@ -34,8 +33,7 @@ export function ResponsiveLayout({
   children, 
   className, 
   sidebar, 
-  header,
-  showSidebar = true 
+  header
 }: ResponsiveLayoutProps) {
   const [screenSize, setScreenSize] = useState<'mobile' | 'tablet' | 'desktop'>('mobile');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
